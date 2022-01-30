@@ -114,16 +114,18 @@ const App = () => {
     setCurrentGuess([]);
 
     if (winningGuess) {
-      addStatsForCompletedGame(stats, guessCount);
+      const updatedStats = addStatsForCompletedGame(stats, guessCount);
+      setStats(updatedStats);
       setIsGameWon(true);
       setIsSolutionsOpen(true);
       return;
     }
 
     if (newGuesses.length === 6) {
+      const updatedStats = addStatsForCompletedGame(stats, guessCount + 1);
+      setStats(updatedStats);
       setIsGameLost(true);
       setIsSolutionsOpen(true);
-      addStatsForCompletedGame(stats, guessCount + 1);
     }
   }
 
