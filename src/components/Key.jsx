@@ -1,4 +1,4 @@
-import { Grid, Button } from "semantic-ui-react";
+import { Grid, Button } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
 
 import './Key.scss';

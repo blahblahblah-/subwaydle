@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Grid, Button } from "semantic-ui-react";
+import { Grid, Button } from 'semantic-ui-react';
 import Key from './Key';
 import HintModal from './HintModal';
 import routes from '../data/routes.json';

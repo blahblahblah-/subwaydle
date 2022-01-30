@@ -1,4 +1,4 @@
-import { Grid } from "semantic-ui-react";
+import { Grid } from 'semantic-ui-react';
 import CompletedRow from './CompletedRow';
 import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';

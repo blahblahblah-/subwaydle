@@ -1,7 +1,7 @@
-import { Modal } from "semantic-ui-react";
-import { todaysSolution } from "../utils/answerValidations";
+import { Modal } from 'semantic-ui-react';
+import { todaysSolution } from '../utils/answerValidations';
 
-import stations from "../data/stations.json";
+import stations from '../data/stations.json';
 
 const HintModal = (props) => {
   const { trigger } = props;

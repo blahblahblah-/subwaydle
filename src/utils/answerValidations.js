@@ -35,6 +35,10 @@ export const todaysTrip = () => {
   return weekdayAnswers[index % weekdayAnswers.length];
 }
 
+export const flattenedTodaysTrip = () => {
+  return todaysTrip().join('-');
+}
+
 export const todaysSolution = () => {
   if (isWeekend) {
     return weekendSolutions[todaysTrip().join("-")];

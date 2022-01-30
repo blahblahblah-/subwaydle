@@ -1,5 +1,5 @@
-import { Modal, Header, Grid, Segment } from "semantic-ui-react";
-import TrainBullet from "./TrainBullet";
+import { Modal, Header, Grid, Segment } from 'semantic-ui-react';
+import TrainBullet from './TrainBullet';
 
 const AboutModal = (props) => {
   const { trigger } = props;

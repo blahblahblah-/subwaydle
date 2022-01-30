@@ -1,6 +1,6 @@
-import { Modal, Header } from "semantic-ui-react";
-import TrainBullet from "./TrainBullet";
-import { todaysTrip, todaysSolution } from "../utils/answerValidations";
+import { Modal, Header } from 'semantic-ui-react';
+import TrainBullet from './TrainBullet';
+import { todaysTrip, todaysSolution } from '../utils/answerValidations';
 
 import stations from "../data/stations.json";
 
@@ -10,7 +10,7 @@ const SolutionModal = (props) => {
   const solution = todaysSolution();
   return (
     <Modal closeIcon open={open} onClose={handleClose}>
-      <Modal.Header>Yay!</Modal.Header>
+      <Modal.Header>Yay! You completed today's trip!</Modal.Header>
       <Modal.Content>
         <Header as='h3'>Today's Journey</Header>
         <TrainBullet id={trip[0]} size='small' /> from { stations[solution.origin].name } to { stations[solution.first_transfer_arrival].name }<br />

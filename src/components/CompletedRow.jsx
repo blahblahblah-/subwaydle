@@ -1,4 +1,4 @@
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid, Segment } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
 import { checkGuessStatuses } from '../utils/answerValidations';
 

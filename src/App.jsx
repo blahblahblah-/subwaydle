@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Header, Segment, Icon, Message } from "semantic-ui-react";
+import { Header, Segment, Icon, Message } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import GameGrid from './components/GameGrid';
@@ -12,7 +12,13 @@ import {
   isValidGuess,
   isWinningGuess,
   updateGuessStatuses,
+  flattenedTodaysTrip,
 } from './utils/answerValidations';
+
+import {
+  loadGameStateFromLocalStorage,
+  saveGameStateToLocalStorage,
+} from './utils/localStorage';
 
 import './App.scss';
 
@@ -26,10 +32,27 @@ const App = () => {
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
-  const [guesses, setGuesses] = useState([]);
+  const [guesses, setGuesses] = useState(() => {
+    const loaded = loadGameStateFromLocalStorage();
+    if (loaded?.answer !== flattenedTodaysTrip()) {
+      return []
+    }
+    const gameWasWon = loaded.guesses.map((g) => g.join('-')).includes(flattenedTodaysTrip())
+    if (gameWasWon) {
+      setIsGameWon(true)
+    }
+    if (loaded.guesses.length === 6 && !gameWasWon) {
+      setIsGameLost(true)
+    }
+    return loaded.guesses;
+  });
   const [absentRoutes, setAbsentRoutes] = useState([]);
   const [presentRoutes, setPresentRoutes] = useState([]);
   const [correctRoutes, setCorrectRoutes] = useState([]);
+
+  useEffect(() => {
+    saveGameStateToLocalStorage({ guesses, answer: flattenedTodaysTrip() })
+  }, [guesses])
 
   const onChar = (routeId) => {
     if (!isGameWon && currentGuess.length < 3 && guesses.length < ATTEMPTS) {
