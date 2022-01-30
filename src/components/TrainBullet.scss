@@ -1,0 +1,33 @@
+.route {
+  width: 2em;
+  height: 2em;
+  font-size: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-weight: bold;
+  font-style: normal!important;
+  color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.medium {
+    height: 1.75em;
+    width: 1.75em;
+    font-size: 1.75em;
+    line-height: 1.75em;
+  }
+
+  &.small {
+    height: 1.5em;
+    width: 1.5em;
+    font-size: 1em;
+    line-height: 1.5em;
+    display: inline-block;
+  }
+}
+
+.bullet {
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+}

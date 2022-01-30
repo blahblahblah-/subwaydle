@@ -1,0 +1,20 @@
+.keyboard .stretched.column.key {
+  padding: 0!important;
+
+  .correct {
+    background-color: #6aaa64;
+  }
+
+  .present {
+    background-color: #c9b458;
+  }
+
+  .absent {
+    background-color: #787c7e;
+  }
+}
+
+.ui.doubling.grid>.row>.column.key, .ui.grid>.doubling.row>.column.key {
+  padding-top: .1rem!important;
+  padding-bottom: .1rem!important;
+}

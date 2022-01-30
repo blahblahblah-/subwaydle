@@ -1,0 +1,23 @@
+.ui.grid.game-grid {
+  .row {
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+  }
+
+  .ui.placeholder.segment {
+    padding: 0;
+    min-height: 3.5rem;
+
+    &.correct {
+      background-color: #6aaa64;
+    }
+
+    &.present {
+      background-color: #c9b458;
+    }
+
+    &.absent {
+      background-color: #787c7e;
+    }
+  }
+}

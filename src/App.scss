@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.message.negative {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: 20px;
+  width: 300px;
+  z-index:  1;
+  text-align:  center;
+}
+
+.float-right {
+  float: right;
+}
