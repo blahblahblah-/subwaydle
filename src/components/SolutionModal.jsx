@@ -29,7 +29,7 @@ const SolutionModal = (props) => {
   }
 
   return (
-    <Modal closeIcon open={open} onClose={handleClose} className='solutions-modal'>
+    <Modal closeIcon open={open} onClose={handleClose} className='solutions-modal' size='tiny'>
       <Modal.Header>{ title }</Modal.Header>
       <Modal.Content>
         <Modal.Description>
