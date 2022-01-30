@@ -6,6 +6,7 @@ import GameGrid from './components/GameGrid';
 import Keyboard from './components/Keyboard';
 import AboutModal from './components/AboutModal';
 import SolutionModal from './components/SolutionModal';
+import StatsModal from './components/StatsModal';
 import {
   isWeekend,
   routesWithNoService,
@@ -20,6 +21,8 @@ import {
   saveGameStateToLocalStorage,
 } from './utils/localStorage';
 
+import { addStatsForCompletedGame, loadStats } from './utils/stats';
+
 import './App.scss';
 
 const ATTEMPTS = 6;
@@ -30,6 +33,7 @@ const App = () => {
   const [isGameWon, setIsGameWon] = useState(false);
   const [isGameLost, setIsGameLost] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
   const [guesses, setGuesses] = useState(() => {
@@ -39,23 +43,26 @@ const App = () => {
     }
     const gameWasWon = loaded.guesses.map((g) => g.join('-')).includes(flattenedTodaysTrip())
     if (gameWasWon) {
-      setIsGameWon(true)
+      setIsGameWon(true);
+      setIsSolutionsOpen(true);
     }
     if (loaded.guesses.length === 6 && !gameWasWon) {
       setIsGameLost(true)
+      setIsSolutionsOpen(true);
     }
     return loaded.guesses;
   });
   const [absentRoutes, setAbsentRoutes] = useState([]);
   const [presentRoutes, setPresentRoutes] = useState([]);
   const [correctRoutes, setCorrectRoutes] = useState([]);
+  const [stats, setStats] = useState(() => loadStats());
 
   useEffect(() => {
     saveGameStateToLocalStorage({ guesses, answer: flattenedTodaysTrip() })
   }, [guesses])
 
   const onChar = (routeId) => {
-    if (!isGameWon && currentGuess.length < 3 && guesses.length < ATTEMPTS) {
+    if (!isStatsOpen && !isGameWon && currentGuess.length < 3 && guesses.length < ATTEMPTS) {
       if (!routesWithNoService().includes(routeId)) {
         setCurrentGuess([...currentGuess, routeId]);
       }
@@ -69,7 +76,8 @@ const App = () => {
   }
 
   const onEnter = () => {
-    if (isGameWon || isGameLost || guesses.length === 6) {
+    const guessCount = guesses.length;
+    if (isGameWon || isGameLost || guessCount === 6) {
       return;
     }
 
@@ -104,18 +112,18 @@ const App = () => {
 
     setGuesses(newGuesses);
     setCurrentGuess([]);
-    // save
 
     if (winningGuess) {
+      addStatsForCompletedGame(stats, guessCount);
       setIsGameWon(true);
       setIsSolutionsOpen(true);
-      // set stats
       return;
     }
 
     if (newGuesses.length === 6) {
       setIsGameLost(true);
-      // set stats
+      setIsSolutionsOpen(true);
+      addStatsForCompletedGame(stats, guessCount + 1);
     }
   }
 
@@ -123,11 +131,23 @@ const App = () => {
     setIsSolutionsOpen(false);
   }
 
+  const onStatsClose = () => {
+    setIsStatsOpen(false);
+  }
+
+  const handleStatsOpen = () => {
+    if (isGameWon || isGameLost) {
+      setIsSolutionsOpen(true);
+    } else {
+      setIsStatsOpen(true);
+    }
+  }
+
   return (
     <Segment basic className='app-wrapper'>
       <Segment clearing basic>
         <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
-        <Icon className='float-right' name='chart bar' size='large' />
+        <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <AboutModal trigger={<Icon className='float-right' name='question circle outline' size='large' link />} />
       </Segment>
       <Segment basic>
@@ -161,7 +181,8 @@ const App = () => {
           absentRoutes={absentRoutes}
         />
       </Segment>
-      <SolutionModal open={isSolutionsOpen} handleClose={onSolutionsClose} />
+      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} stats={stats} handleClose={onSolutionsClose} guesses={guesses} />
+      <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
     </Segment>
   );
 }

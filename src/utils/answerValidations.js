@@ -27,8 +27,12 @@ export const isValidGuess = (guess) => {
   return !!weekdaySolutions[flattenedGuess];
 }
 
+export const todayGameIndex = () => {
+  return Math.floor((now - GAME_EPOCH) / DAY_IN_MS);
+}
+
 export const todaysTrip = () => {
-  const index = Math.floor((now - GAME_EPOCH) / DAY_IN_MS)
+  const index = todayGameIndex();
   if (isWeekend) {
     return weekendAnswers[index % weekendAnswers.length];
   }
