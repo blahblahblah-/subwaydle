@@ -4,7 +4,7 @@ export const shareStatus = (guesses, lost) => {
   const text = `Subwaydle ${todayGameIndex()} ${lost ? 'X' : guesses.length}/6\n\n` +
     generateEmojiGrid(guesses);
   if (navigator.share) {
-    navigator.share(text);
+    navigator.share({text: text});
   } else {
     navigator.clipboard.writeText(text);
   }
