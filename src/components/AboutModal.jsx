@@ -10,7 +10,7 @@ const AboutModal = (props) => {
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
         <p>Each guess must a be a valid subway trip involving 3 trains using available transfers between them.</p>
         <p><strong>No back tracking:</strong> No stations can be traveled through more than once in each trip.</p>
-        <p>Transfers are only allowed if and when the lines are diverging.</p>
+        <p>Transfers are only allowed if and when the lines are diverge.</p>
         <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
           Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
 
@@ -25,7 +25,7 @@ const AboutModal = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='6' size='small' />
+                  <TrainBullet id='N' size='small' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
@@ -59,7 +59,7 @@ const AboutModal = (props) => {
             </Grid.Row>
           </Grid>
         </Segment>
-        <p>The <TrainBullet id='5' size='small' /> train part of the trip, but in the wrong spot.</p>
+        <p>The <TrainBullet id='5' size='small' /> train is part of the trip, but in the wrong spot.</p>
 
         <Segment basic>
           <Grid centered columns={4} className='game-grid'>
