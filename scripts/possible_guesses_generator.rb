@@ -8,7 +8,6 @@ patterns = {
 }
 
 transfers = {}
-express_stations = []
 
 transfers_csv = File.read('data/common/transfers.txt')
 csv = CSV.parse(transfers_csv, headers: true)
@@ -19,12 +18,6 @@ csv.each do |row|
   else
     transfers[row['from_stop_id']] = [row['to_stop_id']]
   end
-end
-
-express_csv = File.read('data/common/express.csv')
-csv = CSV.parse(express_csv)
-csv.each do |row|
-  express_stations << row[0]
 end
 
 patterns.each do |p, routes|
@@ -60,7 +53,7 @@ patterns.each do |p, routes|
           next_station1 = subrouting1[i1n + 1]
 
           transfers1 = [transfers[s2]].flatten.compact
-          transfers1 << s2 if express_stations.include?(s2) || transfers1.size > 0
+          transfers1 << s2
 
           transfers1.each do |t1|
             station_stops[t1].each do |r2|
@@ -75,7 +68,7 @@ patterns.each do |p, routes|
                   path2 = path1 + subrouting2[0..i2n]
                   next_station2 = subrouting2[i2n + 1]
                   transfers2 = [transfers[s3]].flatten.compact
-                  transfers2 << s3 if express_stations.include?(s3) || transfers2.size > 0
+                  transfers2 << s3
 
                   transfers2.each do |t2|
                     station_stops[t2].each do |r3|
