@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 import GameGrid from './components/GameGrid';
 import Keyboard from './components/Keyboard';
+import AboutModal from './components/AboutModal';
 import SolutionModal from './components/SolutionModal';
 import {
   isWeekend,
@@ -51,16 +52,18 @@ const App = () => {
 
     if (currentGuess.length !== 3) {
       setIsNotEnoughRoutes(true);
-      return setTimeout(() => {
+      setTimeout(() => {
         setIsNotEnoughRoutes(false)
       }, ALERT_TIME_MS);
+      return;
     }
 
     if (!isValidGuess(currentGuess)) {
       setIsGuessInvalid(true);
-      return setTimeout(() => {
+      setTimeout(() => {
         setIsGuessInvalid(false)
       }, ALERT_TIME_MS);
+      return;
     }
 
     const winningGuess = isWinningGuess(currentGuess);
@@ -102,7 +105,7 @@ const App = () => {
       <Segment clearing basic>
         <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
         <Icon className='float-right' name='chart bar' size='large' />
-        <Icon className='float-right' name='question circle outline' size='large' />
+        <AboutModal trigger={<Icon className='float-right' name='question circle outline' size='large' link />} />
       </Segment>
       <Segment basic>
         {

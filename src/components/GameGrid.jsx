@@ -7,20 +7,20 @@ import './GameGrid.scss';
 
 const GameGrid = (props) => {
   const { currentGuess, guesses, attempts, inPlay } = props;
-  const emptyRows = [...Array(attempts - 1).keys()];
+  const emptyRows = [...Array(inPlay ? (attempts - 1) : attempts).keys()];
   return (
     <Grid centered columns={4} className='game-grid'>
       {
-        inPlay &&
-        <CurrentRow currentGuess={currentGuess} />
-      }
-      {
-        guesses.slice().reverse().map((g, i) => {
+        guesses.slice().map((g, i) => {
           emptyRows.pop();
           return (
             <CompletedRow id={i} guess={g} />
           )
         })
+      }
+      {
+        inPlay &&
+        <CurrentRow currentGuess={currentGuess} />
       }
       {
         emptyRows.map((r) => {

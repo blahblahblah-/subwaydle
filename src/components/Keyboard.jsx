@@ -34,6 +34,10 @@ const Keyboard = (props) => {
     onDelete();
   }
 
+  const handleEnter = () => {
+    onEnter();
+  }
+
 
   return (
     <Grid centered columns={7} className='keyboard'>
@@ -90,7 +94,7 @@ const Keyboard = (props) => {
         </Grid.Row>
         <Grid.Row columns={6}>
           <Grid.Column className='key' stretched>
-            <Button>
+            <Button onClick={handleEnter}>
               Enter
             </Button>
           </Grid.Column>
