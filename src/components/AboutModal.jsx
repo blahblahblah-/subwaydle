@@ -4,13 +4,14 @@ import TrainBullet from "./TrainBullet";
 const AboutModal = (props) => {
   const { trigger } = props;
   return (
-    <Modal trigger={trigger} closeIcon size='mini'>
+    <Modal trigger={trigger} closeIcon size='tiny'>
       <Modal.Header>How to Play</Modal.Header>
       <Modal.Content scrolling>
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
         <p>Each guess must a be a valid subway trip involving 3 trains using available transfers between them.</p>
         <p><strong>No back tracking:</strong> No stations can be traveled through more than once in each trip.</p>
-        <p>Transfers are only allowed if and when the lines are diverge.</p>
+        <p>Transfers are only allowed if and when the lines are diverge (i.e. if two lines are making the same stops, you can't switch back and forth between them,
+          You can switch from a local line to an express line then back to the same local line, but you can't switch from an express line to a local line back to the same express line).</p>
         <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
           Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
 
@@ -20,17 +21,17 @@ const AboutModal = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder className='correct'>
-                  <TrainBullet id='A' size='small' />
+                  <TrainBullet id='A' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='N' size='small' />
+                  <TrainBullet id='N' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='7' size='small' />
+                  <TrainBullet id='7' size='medium' />
                 </Segment>
               </Grid.Column>
             </Grid.Row>
@@ -43,17 +44,17 @@ const AboutModal = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='J' size='small' />
+                  <TrainBullet id='J' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder className='present'>
-                  <TrainBullet id='5' size='small' />
+                  <TrainBullet id='5' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='2' size='small' />
+                  <TrainBullet id='2' size='medium' />
                 </Segment>
               </Grid.Column>
             </Grid.Row>
@@ -66,17 +67,17 @@ const AboutModal = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='F' size='small' />
+                  <TrainBullet id='F' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder>
-                  <TrainBullet id='3' size='small' />
+                  <TrainBullet id='3' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder className='absent'>
-                  <TrainBullet id='4' size='small' />
+                  <TrainBullet id='4' size='medium' />
                 </Segment>
               </Grid.Column>
             </Grid.Row>

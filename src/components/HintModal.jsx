@@ -7,10 +7,10 @@ const HintModal = (props) => {
   const { trigger } = props;
   const solution = todaysSolution();
   return (
-    <Modal trigger={trigger} closeIcon>
+    <Modal trigger={trigger} closeIcon size='tiny'>
       <Modal.Header>Hint</Modal.Header>
       <Modal.Content>
-        From { stations[solution.origin].name } to { stations[solution.destination].name }
+        Travel from { stations[solution.origin].name } to { stations[solution.destination].name }.
       </Modal.Content>
     </Modal>
   );

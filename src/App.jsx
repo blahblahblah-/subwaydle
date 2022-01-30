@@ -101,7 +101,7 @@ const App = () => {
   }
 
   return (
-    <Segment basic>
+    <Segment basic className='app-wrapper'>
       <Segment clearing basic>
         <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
         <Icon className='float-right' name='chart bar' size='large' />

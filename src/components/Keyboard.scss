@@ -1,3 +1,10 @@
 .ui.grid.keyboard>.row {
   padding: .2rem;
 }
+
+.ui.grid.keyboard {
+  .ui.button {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
