@@ -10,7 +10,7 @@ const AboutModal = (props) => {
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
         <p>Each guess must a be a valid subway trip involving 3 trains using available transfers between them.</p>
         <p><strong>No back tracking:</strong> No stations can be traveled through more than once in each trip.</p>
-        <p>Transfers are only allowed if and when the lines are diverge (i.e. if two lines are making the same stops, you can't switch back and forth between them,
+        <p>Transfers are only allowed if and when the lines diverge (i.e. if two lines are making the same stops, you can't switch back and forth between them,
           You can switch from a local line to an express line then back to the same local line, but you can't switch from an express line to a local line back to the same express line).</p>
         <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
           Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
