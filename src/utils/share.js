@@ -2,7 +2,7 @@ import { todayGameIndex, checkGuessStatuses } from './answerValidations';
 
 export const shareStatus = (guesses, lost) => {
   const text = `Subwaydle ${todayGameIndex()} ${lost ? 'X' : guesses.length}/6\n\n` +
-    generateEmojiGrid(guesses);
+    generateEmojiGrid(guesses) + "\n\nsubwaydle.com";
   if (navigator.share) {
     navigator.share({text: text});
   } else {
