@@ -36,6 +36,9 @@ const App = () => {
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
+  const [absentRoutes, setAbsentRoutes] = useState([]);
+  const [presentRoutes, setPresentRoutes] = useState([]);
+  const [correctRoutes, setCorrectRoutes] = useState([]);
   const [guesses, setGuesses] = useState(() => {
     const loaded = loadGameStateFromLocalStorage();
     if (loaded?.answer !== flattenedTodaysTrip()) {
@@ -50,11 +53,9 @@ const App = () => {
       setIsGameLost(true)
       setIsSolutionsOpen(true);
     }
+    updateGuessStatuses(loaded.guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes);
     return loaded.guesses;
   });
-  const [absentRoutes, setAbsentRoutes] = useState([]);
-  const [presentRoutes, setPresentRoutes] = useState([]);
-  const [correctRoutes, setCorrectRoutes] = useState([]);
   const [stats, setStats] = useState(() => loadStats());
 
   useEffect(() => {
@@ -101,13 +102,13 @@ const App = () => {
     const newGuesses = [...guesses, currentGuess];
 
     updateGuessStatuses(
-      currentGuess,
-      correctRoutes,
+      [currentGuess],
       setCorrectRoutes,
-      presentRoutes,
       setPresentRoutes,
-      absentRoutes,
       setAbsentRoutes,
+      correctRoutes,
+      presentRoutes,
+      absentRoutes,
     );
 
     setGuesses(newGuesses);

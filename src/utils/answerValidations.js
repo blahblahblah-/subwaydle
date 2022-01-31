@@ -54,28 +54,31 @@ export const isWinningGuess = (guess) => {
   return guess.join('-') === todaysTrip().join('-');
 }
 
-export const updateGuessStatuses = (guess, correctRoutes, setCorrectRoutes, presentRoutes, setPresentRoutes, absentRoutes, setAbsentRoutes) => {
-  const correct = correctRoutes.slice();
-  const present = presentRoutes.slice();
-  const absent = absentRoutes.slice();
-  const remainingRoutes = [];
-  const remainingGuessPositions = [];
+export const updateGuessStatuses = (guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes, correctRoutes, presentRoutes, absentRoutes) => {
+  const correct = correctRoutes || [];
+  const present = presentRoutes || [];
+  const absent = absentRoutes || [];
 
-  todaysTrip().forEach((routeId, index) => {
-    if (guess[index] === routeId) {
-      correct.push(routeId);
-    } else {
-      remainingRoutes.push(routeId);
-      remainingGuessPositions.push(index);
-    }
-  });
+  guesses.forEach((guess) => {
+    const remainingRoutes = [];
+    const remainingGuessPositions = [];
 
-  remainingGuessPositions.forEach((index) => {
-    if (remainingRoutes.includes(guess[index])) {
-      present.push(guess[index]);
-    } else {
-      absent.push(guess[index]);
-    }
+    todaysTrip().forEach((routeId, index) => {
+      if (guess[index] === routeId) {
+        correct.push(routeId);
+      } else {
+        remainingRoutes.push(routeId);
+        remainingGuessPositions.push(index);
+      }
+    });
+
+    remainingGuessPositions.forEach((index) => {
+      if (remainingRoutes.includes(guess[index])) {
+        present.push(guess[index]);
+      } else {
+        absent.push(guess[index]);
+      }
+    });
   });
 
   setCorrectRoutes(correct);
