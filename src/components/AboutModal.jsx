@@ -1,4 +1,4 @@
-import { Modal, Header, Grid, Segment } from 'semantic-ui-react';
+import { Modal, Header, Grid, Segment, Icon } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
 
 const AboutModal = (props) => {
@@ -15,7 +15,7 @@ const AboutModal = (props) => {
         <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
           Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
 
-        <Header as='h5'>Examples</Header>
+        <Header as='h4'>Examples</Header>
         <Segment basic>
           <Grid centered columns={4} className='game-grid'>
             <Grid.Row>
@@ -85,13 +85,20 @@ const AboutModal = (props) => {
         </Segment>
         <p>The <TrainBullet id='4' size='small' /> train is not part of the trip in any spot.</p>
 
-        <Header as='h5'>About</Header>
+        <Header as='h4'>Tips</Header>
+        <p>Input using keyboard is supported.</p>
+        <p>Use <strong>I</strong> for <TrainBullet id='SI' size='small' />.</p>
+        <p>Use <strong>S</strong> for <TrainBullet id='GS' size='small' />.</p>
+        <p>Use <strong>K</strong> for <TrainBullet id='FS' size='small' />.</p>
+        <p>Use <strong>H</strong> for <TrainBullet id='H' size='small' />.</p>
+
+        <Header as='h4'>About</Header>
 
         <p>Inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>,
           its <a href="https://github.com/hannahcode/wordle" target="_blank">open-source clone</a>, <a href="https://nerdlegame.com/" target="_blank">Nerdle</a>,
           and <a href="https://www.nytransitmuseum.org/">New York Transit Museum</a> Trivia Nights.</p>
 
-        <p>Created by <a href="https://www.sunny.ng" target="_blank">Sunny Ng</a>.</p>
+        <p>Created by <a href="https://www.sunny.ng" target="_blank">Sunny Ng</a><a href='https://twitter.com/_blahblahblah' target='_blank'><Icon name='twitter' link /></a></p>
         <p><a href="https://github.com/blahblahblah-/subwaydle" target="_blank">Source code</a>.</p>
         <p>Check out my other NYC Subway related projects: <a href="https://www.theweekendest.com" target="_blank">The Weekendest</a> and <a href="https://www.goodservice.io" target="_blank">goodservice.io</a>.</p>
       </Modal.Content>
