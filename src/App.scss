@@ -1,6 +1,17 @@
 .app-wrapper {
   max-width: 500px;
   margin: auto!important;
+
+  .header-wrapper {
+    margin-bottom: 0;
+    .header {
+      margin-bottom: 0;
+    }
+  }
+
+  .game-grid-wrapper {
+    margin-top: 0;
+  }
 }
 
 .message.negative {

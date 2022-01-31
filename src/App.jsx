@@ -148,12 +148,12 @@ const App = () => {
 
   return (
     <Segment basic className='app-wrapper'>
-      <Segment clearing basic>
+      <Segment clearing basic className='header-wrapper'>
         <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <AboutModal trigger={<Icon className='float-right' name='question circle outline' size='large' link />} />
       </Segment>
-      <Segment basic>
+      <Segment basic className='game-grid-wrapper'>
         {
           isNotEnoughRoutes &&
           <Message negative floating attached='top'>
