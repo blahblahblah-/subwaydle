@@ -101,7 +101,15 @@ const Keyboard = (props) => {
         {
           ["SI", "GS", "FS", "H"].map((routeId) => {
             return (
-              <Key id={routeId} key={routeId} onClick={onChar} disabled={noService.includes(routeId)} />
+              <Key
+                id={routeId}
+                key={routeId}
+                onClick={onChar}
+                disabled={noService.includes(routeId)}
+                isCorrect={correctRoutes.includes(routeId)}
+                isPresent={presentRoutes.includes(routeId)}
+                isAbsent={absentRoutes.includes(routeId)}
+              />
             )
           })
         }
