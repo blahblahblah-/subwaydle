@@ -21,6 +21,10 @@ const Keyboard = (props) => {
           onChar(key);
         } else if (key === 'S') {
           onChar('GS');
+        } else if (key === 'K') {
+          onChar('FS');
+        } else if (key === 'I') {
+          onChar('SI');
         }
       }
     }
