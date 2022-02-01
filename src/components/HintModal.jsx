@@ -10,7 +10,9 @@ const HintModal = (props) => {
     <Modal trigger={trigger} closeIcon size='tiny'>
       <Modal.Header>Hint</Modal.Header>
       <Modal.Content>
-        Travel from { stations[solution.origin].name } to { stations[solution.destination].name }.
+        <p>Travel from { stations[solution.origin].name } to { stations[solution.destination].name } using 2 transfers.</p>
+        <p><strong>Note:</strong> There may be multiple ways to make this journey, you have to guess a specific one. And this specific way may
+          not be the most efficent or fastest route.</p>
       </Modal.Content>
     </Modal>
   );
