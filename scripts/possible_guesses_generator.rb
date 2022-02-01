@@ -63,7 +63,7 @@ patterns.each do |p, routes|
                 next if next_station1 && subrouting2.include?(next_station1)
                 subrouting2.each_with_index do |s3, i2n|
                   next if i2n == 0
-                  break if path1.include?(s3)
+                  break if path1.include?(s3) || [transfers[s3]].flatten.compact.any? { |s| path1.include?(s) }
 
                   path2 = path1 + subrouting2[0..i2n]
                   next_station2 = subrouting2[i2n + 1]
@@ -79,7 +79,7 @@ patterns.each do |p, routes|
                         next if next_station2 && subrouting3.include?(next_station2)
                         subrouting3.each_with_index do |s4, i3n|
                           next if i3n == 0
-                          break if path2.include?(s4)
+                          break if path1.include?(s4) || path2.include?(s4) || [transfers[s4]].flatten.compact.any? { |s| path1.include?(s) } || [transfers[s4]].flatten.compact.any? { |s| path2.include?(s) }
 
                           combo = [r1, r2, r3].map do |x|
                             if x.start_with?("A")

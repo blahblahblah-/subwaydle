@@ -12,6 +12,8 @@ const AboutModal = (props) => {
         <p><strong>No back tracking:</strong> No stations can be traveled through more than once in each trip.</p>
         <p>Transfers are only allowed if and when the lines diverge (i.e. if two lines are making the same stops, you can't switch back and forth between them,
           You can switch from a local line to an express line then back to the same local line, but you can't switch from an express line to a local line back to the same express line).</p>
+        <p>Transfers are allowed to/from St George station and South Ferry, Whitehall St–South Ferry and Bowling Green stations (via Staten Island Ferry). Transfers are also allowed between stations with free out-of-system transfers.
+          It is assumed that all stations allow transfer in all directions, even when they're not physically possible in real life (this data is not publicly available).</p>
         <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
           Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
 
