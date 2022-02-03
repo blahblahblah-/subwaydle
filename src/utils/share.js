@@ -19,11 +19,11 @@ const generateEmojiGrid = (guesses) => {
       return status.map((s) => {
           switch (s) {
             case 'correct':
-              return '🟩';
+              return '🟢';
             case 'present':
-              return '🟨';
+              return '🟡';
             default:
-              return '⬜';
+              return '⚪';
           }
         })
         .join('');
