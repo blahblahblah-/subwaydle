@@ -12,7 +12,6 @@ import './MapFrame.scss';
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const MANHATTAN_TILT = 29;
-const center = [-73.98119, 40.75855]
 
 const MapFrame = (props) => {
   const mapContainer = useRef(null);
