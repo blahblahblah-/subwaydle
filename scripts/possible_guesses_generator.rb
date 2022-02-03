@@ -34,7 +34,7 @@ patterns.each do |p, routes|
 
   routes.each do |r|
     routings[r] = []
-    route_csv = File.read("data/#{p}/#{r}.csv")
+    route_csv = File.read("data/#{p}/stops/#{r}.csv")
     csv = CSV.parse(route_csv)
     csv.each do |row|
       station_stops[row[0]] << r
@@ -58,6 +58,7 @@ patterns.each do |p, routes|
           transfers1.each do |t1|
             station_stops[t1].each do |r2|
               next if r2 == r1
+              next if routings[r2].include?(s1)
               i2 = routings[r2].index(t1)
               [routings[r2][i2..-1], routings[r2][0..i2].reverse].each do |subrouting2|
                 next if next_station1 && subrouting2.include?(next_station1)
@@ -73,6 +74,7 @@ patterns.each do |p, routes|
                   transfers2.each do |t2|
                     station_stops[t2].each do |r3|
                       next if r3 == r2
+                      next if routings[r3].include?(t1)
                       i3 = routings[r3].index(t2)
 
                       [routings[r3][i3..-1], routings[r3][0..i3].reverse].each do |subrouting3|
