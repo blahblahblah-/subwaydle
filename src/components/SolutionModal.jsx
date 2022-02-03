@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Modal, Header, Button, Icon } from 'semantic-ui-react';
-import Stats from './Stats';
 
+import Stats from './Stats';
 import TrainBullet from './TrainBullet';
+import MapFrame from './MapFrame';
+
 import { todaysTrip, todaysSolution } from '../utils/answerValidations';
 import { shareStatus } from '../utils/share';
 
@@ -30,10 +32,11 @@ const SolutionModal = (props) => {
   }
 
   return (
-    <Modal closeIcon open={open} onClose={handleClose} className='solutions-modal' size='tiny'>
+    <Modal closeIcon open={open} onClose={handleClose} className='solutions-modal' size='small'>
       <Modal.Header>{ title }</Modal.Header>
       <Modal.Content>
         <Modal.Description>
+        <MapFrame />
           <Header as='h3'>Today's Journey</Header>
           <TrainBullet id={trip[0]} size='small' /> from { stations[solution.origin].name } to { stations[solution.first_transfer_arrival].name }<br />
           <TrainBullet id={trip[1]} size='small' /> from { stations[solution.first_transfer_departure].name } to { stations[solution.second_transfer_arrival].name }<br />
