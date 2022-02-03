@@ -1,6 +1,8 @@
-.app-wrapper {
+.ui.segment.app-wrapper {
   max-width: 500px;
   margin: auto!important;
+  padding-top: 0;
+  padding-bottom: 0;
 
   .header-wrapper {
     margin-bottom: 0;
