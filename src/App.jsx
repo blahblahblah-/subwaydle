@@ -36,6 +36,7 @@ const App = () => {
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
+  const [isHintUsed, setIsHintUsed] = useState(false);
   const [absentRoutes, setAbsentRoutes] = useState([]);
   const [presentRoutes, setPresentRoutes] = useState([]);
   const [correctRoutes, setCorrectRoutes] = useState([]);
@@ -54,13 +55,14 @@ const App = () => {
       setIsSolutionsOpen(true);
     }
     updateGuessStatuses(loaded.guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes);
+    setIsHintUsed(!!loaded.isHintUsed);
     return loaded.guesses;
   });
   const [stats, setStats] = useState(() => loadStats());
 
   useEffect(() => {
-    saveGameStateToLocalStorage({ guesses, answer: flattenedTodaysTrip() })
-  }, [guesses])
+    saveGameStateToLocalStorage({ guesses, isHintUsed, answer: flattenedTodaysTrip() })
+  }, [guesses, isHintUsed])
 
   const onChar = (routeId) => {
     if (!isStatsOpen && !isGameWon && currentGuess.length < 3 && guesses.length < ATTEMPTS) {
@@ -146,6 +148,12 @@ const App = () => {
     }
   }
 
+  const onHintOpen = () => {
+    if (!isGameWon && !isGameLost) {
+      setIsHintUsed(true);
+    }
+  }
+
   return (
     <Segment basic className='app-wrapper'>
       <Segment clearing basic className='header-wrapper'>
@@ -182,9 +190,10 @@ const App = () => {
           correctRoutes={correctRoutes}
           presentRoutes={presentRoutes}
           absentRoutes={absentRoutes}
+          onHintOpen={onHintOpen}
         />
       </Segment>
-      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} stats={stats} handleClose={onSolutionsClose} guesses={guesses} />
+      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} stats={stats} handleClose={onSolutionsClose} guesses={guesses} isHintUsed={isHintUsed} />
       <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
     </Segment>
   );

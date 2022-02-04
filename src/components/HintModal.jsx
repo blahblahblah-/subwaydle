@@ -4,10 +4,10 @@ import { todaysSolution } from '../utils/answerValidations';
 import stations from '../data/stations.json';
 
 const HintModal = (props) => {
-  const { trigger } = props;
+  const { trigger, onHintOpen } = props;
   const solution = todaysSolution();
   return (
-    <Modal trigger={trigger} closeIcon size='tiny'>
+    <Modal trigger={trigger} closeIcon size='tiny' onOpen={onHintOpen}>
       <Modal.Header>Hint</Modal.Header>
       <Modal.Content>
         <p>Travel from { stations[solution.origin].name } to { stations[solution.destination].name } using 2 transfers.</p>
