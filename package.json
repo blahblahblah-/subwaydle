@@ -42,5 +42,6 @@
   },
   "devDependencies": {
     "@semantic-ui-react/css-patch": "^1.0.0"
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }
