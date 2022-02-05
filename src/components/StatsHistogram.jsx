@@ -13,10 +13,10 @@ const StatsHistogram = (props) => {
             stats.winDistribution.map((value, i) => {
               return (
                 <Grid.Row key={i}>
-                  <Grid.Column width={1}>
+                  <Grid.Column width={2}>
                     { i + 1}
                   </Grid.Column>
-                  <Grid.Column width={15}>
+                  <Grid.Column width={14}>
                     <Progress progress='value' success value={value} total={max} />
                   </Grid.Column>
                 </Grid.Row>
