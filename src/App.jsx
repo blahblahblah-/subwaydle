@@ -193,7 +193,7 @@ const App = () => {
           onHintOpen={onHintOpen}
         />
       </Segment>
-      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} stats={stats} handleClose={onSolutionsClose} guesses={guesses} isHintUsed={isHintUsed} />
+      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} handleModalClose={onSolutionsClose} stats={stats} guesses={guesses} isHintUsed={isHintUsed} />
       <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
     </Segment>
   );
