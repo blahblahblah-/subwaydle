@@ -2,18 +2,20 @@ import { Modal, Header, Grid, Segment, Icon } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
 
 const AboutModal = (props) => {
-  const { trigger } = props;
+  const { open, handleClose } = props;
   return (
-    <Modal trigger={trigger} closeIcon size='tiny'>
+    <Modal closeIcon open={open} onClose={handleClose} size='tiny'>
       <Modal.Header>How to Play</Modal.Header>
       <Modal.Content scrolling>
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
-        <p>Each guess must a be a valid subway trip involving 3 trains using available transfers between them.</p>
-        <p><strong>No back tracking:</strong> No stations can be traveled through more than once in each trip.</p>
-        <p>Transfers are only allowed if and when the lines diverge (i.e. if two lines are making the same stops, you can't switch back and forth between them,
+        <p>Each guess must a be a <strong>valid subway trip involving 3 trains</strong> using available transfers between them.</p>
+        <p><strong>No back tracking:</strong> No stations can be traveled through more than once.</p>
+        <p><strong>Transfers are only allowed if and when lines diverge</strong> (i.e. if two lines are making the same stops, you can't switch back and forth between them,
           You can switch from a local line to an express line then back to the same local line, but you can't switch from an express line to a local line back to the same express line).</p>
-        <p>Routing for each train line is based on midday schedule (i.e. no peak-direction express, no peak-only branches, no 
-          Z, B terminates at 145 St). Weekend puzzles are be based on regularly-scheduled weekend routings.</p>
+        <p><strong>Transfers are allowed to/from St George station</strong> via <strong>South Ferry</strong>, <strong>Whitehall St–South Ferry</strong> or <strong>Bowling Green stations</strong> (using the Staten Island Ferry). Transfers are also allowed between stations with <strong>free out-of-system transfers</strong>.
+          It is assumed that all stations allow transfer in all directions, even when they're not physically possible in real life (limitation due to this data is not being publicly available).</p>
+        <p>Routing for each train line is based on <strong>midday schedule</strong> (i.e. no peak-direction express, no peak-only branches, no 
+          Z, B terminates at 145 St). <strong>Weekend puzzles are based on regularly-scheduled weekend routings.</strong></p>
 
         <Header as='h4'>Examples</Header>
         <Segment basic>

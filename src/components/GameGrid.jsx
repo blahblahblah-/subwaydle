@@ -14,7 +14,7 @@ const GameGrid = (props) => {
         guesses.slice().map((g, i) => {
           emptyRows.pop();
           return (
-            <CompletedRow id={i} guess={g} />
+            <CompletedRow id={i} guess={g} key={i} />
           )
         })
       }
@@ -23,9 +23,9 @@ const GameGrid = (props) => {
         <CurrentRow currentGuess={currentGuess} />
       }
       {
-        emptyRows.map((r) => {
+        emptyRows.map((r, i) => {
           return (
-            <EmptyRow />
+            <EmptyRow key={i} />
           );
         })
       }

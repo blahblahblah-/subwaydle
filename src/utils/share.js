@@ -1,4 +1,4 @@
-import { todayGameIndex, checkGuessStatuses } from './answerValidations';
+import { todayGameIndex, checkGuessStatuses, isWeekend } from './answerValidations';
 
 export const shareStatus = (guesses, lost) => {
   const text = `Subwaydle ${todayGameIndex()} ${lost ? 'X' : guesses.length}/6\n\n` +
@@ -18,11 +18,11 @@ const generateEmojiGrid = (guesses) => {
       return status.map((s) => {
           switch (s) {
             case 'correct':
-              return '🟩';
+              return '🟢';
             case 'present':
-              return '🟨';
+              return '🟡';
             default:
-              return '⬜';
+              return '⚪';
           }
         })
         .join('');

@@ -1,0 +1,11 @@
+.stats-histogram {
+  .ui.grid>.row {
+    padding: .25rem;
+  }
+
+  .ui.progress:last-child {
+    margin: 0;
+  }
+
+  margin-bottom: 2em;
+}

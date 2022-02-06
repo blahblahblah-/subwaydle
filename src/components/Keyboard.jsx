@@ -7,7 +7,7 @@ import routes from '../data/routes.json';
 import './Keyboard.scss';
 
 const Keyboard = (props) => {
-  const { noService, onChar, onDelete, onEnter, correctRoutes, presentRoutes, absentRoutes } = props;
+  const { noService, onChar, onDelete, onEnter, correctRoutes, presentRoutes, absentRoutes, onHintOpen } = props;
 
   useEffect(() => {
     const listener = (e) => {
@@ -129,7 +129,7 @@ const Keyboard = (props) => {
             <Button>
               Hint
             </Button>
-          } />
+          } onHintOpen={onHintOpen} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

@@ -19,3 +19,7 @@ export const loadStatsFromLocalStorage = () => {
   const stats = localStorage.getItem(gameStatKey)
   return stats ? (JSON.parse(stats)) : null
 }
+
+export const isNewToGame = () => {
+  return !(localStorage.getItem(gameStateKey) || localStorage.getItem(gameStatKey));
+}

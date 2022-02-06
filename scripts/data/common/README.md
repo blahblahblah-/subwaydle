@@ -1,0 +1,1 @@
+Drop `Stations.csv` from [http://web.mta.info/developers/data/nyct/subway/Stations.csv](here) and `routes.txt` and `transfers.txt` from MTA's latest Subway GTFS in this directory. Get it from [MTA's status feed](http://web.mta.info/developers/developer-data-terms.html).

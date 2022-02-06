@@ -6,9 +6,10 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "mapbox-gl": "^2.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.0",
     "sass": "^1.49.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.1",
@@ -41,5 +42,6 @@
   },
   "devDependencies": {
     "@semantic-ui-react/css-patch": "^1.0.0"
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }

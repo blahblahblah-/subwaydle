@@ -34,7 +34,7 @@ patterns.each do |p, routes|
 
   routes.each do |r|
     routings[r] = []
-    route_csv = File.read("data/#{p}/#{r}.csv")
+    route_csv = File.read("data/#{p}/stops/#{r}.csv")
     csv = CSV.parse(route_csv)
     csv.each do |row|
       station_stops[row[0]] << r
@@ -58,12 +58,13 @@ patterns.each do |p, routes|
           transfers1.each do |t1|
             station_stops[t1].each do |r2|
               next if r2 == r1
+              next if routings[r2].include?(s1)
               i2 = routings[r2].index(t1)
               [routings[r2][i2..-1], routings[r2][0..i2].reverse].each do |subrouting2|
                 next if next_station1 && subrouting2.include?(next_station1)
                 subrouting2.each_with_index do |s3, i2n|
                   next if i2n == 0
-                  break if path1.include?(s3)
+                  break if path1.include?(s3) || [transfers[s3]].flatten.compact.any? { |s| path1.include?(s) }
 
                   path2 = path1 + subrouting2[0..i2n]
                   next_station2 = subrouting2[i2n + 1]
@@ -73,13 +74,14 @@ patterns.each do |p, routes|
                   transfers2.each do |t2|
                     station_stops[t2].each do |r3|
                       next if r3 == r2
+                      next if routings[r3].include?(t1)
                       i3 = routings[r3].index(t2)
 
                       [routings[r3][i3..-1], routings[r3][0..i3].reverse].each do |subrouting3|
                         next if next_station2 && subrouting3.include?(next_station2)
                         subrouting3.each_with_index do |s4, i3n|
                           next if i3n == 0
-                          break if path2.include?(s4)
+                          break if path1.include?(s4) || path2.include?(s4) || [transfers[s4]].flatten.compact.any? { |s| path1.include?(s) } || [transfers[s4]].flatten.compact.any? { |s| path2.include?(s) }
 
                           combo = [r1, r2, r3].map do |x|
                             if x.start_with?("A")
