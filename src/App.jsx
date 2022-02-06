@@ -19,6 +19,7 @@ import {
 import {
   loadGameStateFromLocalStorage,
   saveGameStateToLocalStorage,
+  isNewToGame
 } from './utils/localStorage';
 
 import { addStatsForCompletedGame, loadStats } from './utils/stats';
@@ -34,6 +35,7 @@ const App = () => {
   const [isGameLost, setIsGameLost] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [isStatsOpen, setIsStatsOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
   const [isHintUsed, setIsHintUsed] = useState(false);
@@ -43,7 +45,10 @@ const App = () => {
   const [guesses, setGuesses] = useState(() => {
     const loaded = loadGameStateFromLocalStorage();
     if (loaded?.answer !== flattenedTodaysTrip()) {
-      return []
+      if (isNewToGame() && window.location === window.parent.location) {
+        setIsAboutOpen(true);
+      }
+      return [];
     }
     const gameWasWon = loaded.guesses.map((g) => g.join('-')).includes(flattenedTodaysTrip())
     if (gameWasWon) {
@@ -140,12 +145,20 @@ const App = () => {
     setIsStatsOpen(false);
   }
 
+  const onAboutClose = () => {
+    setIsAboutOpen(false);
+  }
+
   const handleStatsOpen = () => {
     if (isGameWon || isGameLost) {
       setIsSolutionsOpen(true);
     } else {
       setIsStatsOpen(true);
     }
+  }
+
+  const handleAboutOpen = () => {
+    setIsAboutOpen(true);
   }
 
   const onHintOpen = () => {
@@ -159,7 +172,7 @@ const App = () => {
       <Segment clearing basic className='header-wrapper'>
         <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
-        <AboutModal trigger={<Icon className='float-right' name='question circle outline' size='large' link />} />
+        <Icon className='float-right' name='question circle outline' size='large' link onClick={handleAboutOpen} />
       </Segment>
       <Segment basic className='game-grid-wrapper'>
         {
@@ -193,6 +206,7 @@ const App = () => {
           onHintOpen={onHintOpen}
         />
       </Segment>
+      <AboutModal open={isAboutOpen} handleClose={onAboutClose} />
       <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} handleModalClose={onSolutionsClose} stats={stats} guesses={guesses} isHintUsed={isHintUsed} />
       <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
     </Segment>
