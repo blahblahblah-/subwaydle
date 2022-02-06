@@ -107,6 +107,7 @@ const MapFrame = (props) => {
     map.current.touchZoomRotate.disableRotation();
 
     map.current.on('load', () => {
+      map.current.resize();
       const trip = todaysTrip();
       const solution = todaysSolution();
       let coordinates = [];
