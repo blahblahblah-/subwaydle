@@ -14,6 +14,7 @@ import {
   isWinningGuess,
   updateGuessStatuses,
   flattenedTodaysTrip,
+  todaysSolution,
 } from './utils/answerValidations';
 
 import {
@@ -23,6 +24,8 @@ import {
 } from './utils/localStorage';
 
 import { addStatsForCompletedGame, loadStats } from './utils/stats';
+
+import stations from './data/stations.json';
 
 import './App.scss';
 
@@ -38,7 +41,6 @@ const App = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
-  const [isHintUsed, setIsHintUsed] = useState(false);
   const [absentRoutes, setAbsentRoutes] = useState([]);
   const [presentRoutes, setPresentRoutes] = useState([]);
   const [correctRoutes, setCorrectRoutes] = useState([]);
@@ -60,14 +62,15 @@ const App = () => {
       setIsSolutionsOpen(true);
     }
     updateGuessStatuses(loaded.guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes);
-    setIsHintUsed(!!loaded.isHintUsed);
     return loaded.guesses;
   });
   const [stats, setStats] = useState(() => loadStats());
 
+  const solution = todaysSolution();
+
   useEffect(() => {
-    saveGameStateToLocalStorage({ guesses, isHintUsed, answer: flattenedTodaysTrip() })
-  }, [guesses, isHintUsed])
+    saveGameStateToLocalStorage({ guesses, answer: flattenedTodaysTrip() })
+  }, [guesses])
 
   const onChar = (routeId) => {
     if (!isStatsOpen && !isGameWon && currentGuess.length < 3 && guesses.length < ATTEMPTS) {
@@ -161,12 +164,6 @@ const App = () => {
     setIsAboutOpen(true);
   }
 
-  const onHintOpen = () => {
-    if (!isGameWon && !isGameLost) {
-      setIsHintUsed(true);
-    }
-  }
-
   return (
     <Segment basic className='app-wrapper'>
       <Segment clearing basic className='header-wrapper'>
@@ -174,6 +171,7 @@ const App = () => {
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <Icon className='float-right' name='question circle outline' size='large' link onClick={handleAboutOpen} />
       </Segment>
+      <Header as='h5' textAlign='center' className='hint'>Travel from { stations[solution.origin].name } to { stations[solution.destination].name } using 2 transfers.</Header>
       <Segment basic className='game-grid-wrapper'>
         {
           isNotEnoughRoutes &&
@@ -203,11 +201,10 @@ const App = () => {
           correctRoutes={correctRoutes}
           presentRoutes={presentRoutes}
           absentRoutes={absentRoutes}
-          onHintOpen={onHintOpen}
         />
       </Segment>
       <AboutModal open={isAboutOpen} handleClose={onAboutClose} />
-      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} handleModalClose={onSolutionsClose} stats={stats} guesses={guesses} isHintUsed={isHintUsed} />
+      <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} handleModalClose={onSolutionsClose} stats={stats} guesses={guesses} />
       <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
     </Segment>
   );

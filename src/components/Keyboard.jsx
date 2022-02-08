@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { Grid, Button } from 'semantic-ui-react';
 import Key from './Key';
-import HintModal from './HintModal';
 import routes from '../data/routes.json';
 
 import './Keyboard.scss';
 
 const Keyboard = (props) => {
-  const { noService, onChar, onDelete, onEnter, correctRoutes, presentRoutes, absentRoutes, onHintOpen } = props;
+  const { noService, onChar, onDelete, onEnter, correctRoutes, presentRoutes, absentRoutes } = props;
 
   useEffect(() => {
     const listener = (e) => {
@@ -122,15 +121,6 @@ const Keyboard = (props) => {
               Delete
             </Button>
           </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={7} stretched className='key'>
-          <HintModal trigger={
-            <Button>
-              Hint
-            </Button>
-          } onHintOpen={onHintOpen} />
-        </Grid.Column>
       </Grid.Row>
     </Grid>
   );

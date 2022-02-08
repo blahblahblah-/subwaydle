@@ -1,7 +1,7 @@
 import { todayGameIndex, checkGuessStatuses, isWeekend } from './answerValidations';
 
 export const shareStatus = (guesses, lost) => {
-  const title = isWeekend ? `Subwaydle ${todayGameIndex()} (Weekend Edition)` : `Subwaydle ${todayGameIndex()}`;
+  const text = isWeekend ? `Subwaydle ${todayGameIndex()} (Weekend Edition)` : `Subwaydle ${todayGameIndex()}`;
     generateEmojiGrid(guesses);
   const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent);
   if (navigator.share && isIos) {
