@@ -58,7 +58,11 @@ patterns.each do |p, routes|
           transfers1.each do |t1|
             station_stops[t1].each do |r2|
               next if r2 == r1
-              next if routings[r2].include?(s1)
+              if routings[r2].include?(s1)
+                r2_s1_index = routings[r2].index(s1)
+                r2_t1_index = routings[r2].index(t1)
+                next if (r2_t1_index - r2_s1_index).abs <= i1n
+              end
               i2 = routings[r2].index(t1)
               [routings[r2][i2..-1], routings[r2][0..i2].reverse].each do |subrouting2|
                 next if next_station1 && subrouting2.include?(next_station1)
@@ -66,7 +70,7 @@ patterns.each do |p, routes|
                   next if i2n == 0
                   break if path1.include?(s3) || [transfers[s3]].flatten.compact.any? { |s| path1.include?(s) }
 
-                  path2 = path1 + subrouting2[0..i2n]
+                  path2 = subrouting2[0..i2n]
                   next_station2 = subrouting2[i2n + 1]
                   transfers2 = [transfers[s3]].flatten.compact
                   transfers2 << s3
@@ -74,7 +78,11 @@ patterns.each do |p, routes|
                   transfers2.each do |t2|
                     station_stops[t2].each do |r3|
                       next if r3 == r2
-                      next if routings[r3].include?(t1)
+                      if routings[r3].include?(t1)
+                        r3_t1_index = routings[r3].index(t1)
+                        r3_t2_index = routings[r3].index(t2)
+                        next if (r3_t2_index - r3_t1_index).abs <= i2n
+                      end
                       i3 = routings[r3].index(t2)
 
                       [routings[r3][i3..-1], routings[r3][0..i3].reverse].each do |subrouting3|
