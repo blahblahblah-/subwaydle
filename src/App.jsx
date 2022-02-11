@@ -7,6 +7,8 @@ import Keyboard from './components/Keyboard';
 import AboutModal from './components/AboutModal';
 import SolutionModal from './components/SolutionModal';
 import StatsModal from './components/StatsModal';
+import SettingsModal from './components/SettingsModal';
+
 import {
   isWeekend,
   routesWithNoService,
@@ -39,6 +41,7 @@ const App = () => {
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotEnoughRoutes, setIsNotEnoughRoutes] = useState(false);
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
   const [absentRoutes, setAbsentRoutes] = useState([]);
@@ -152,12 +155,20 @@ const App = () => {
     setIsAboutOpen(false);
   }
 
+  const onSettingsClose = () => {
+    setIsSettingsOpen(false);
+  }
+
   const handleStatsOpen = () => {
     if (isGameWon || isGameLost) {
       setIsSolutionsOpen(true);
     } else {
       setIsStatsOpen(true);
     }
+  }
+
+  const handleSettingsOpen = () => {
+    setIsSettingsOpen(true);
   }
 
   const handleAboutOpen = () => {
@@ -167,11 +178,12 @@ const App = () => {
   return (
     <Segment basic className='app-wrapper'>
       <Segment clearing basic className='header-wrapper'>
-        <Header floated='left'>{ isWeekend && "Weekend "}Subwaydle</Header>
+        <Header floated='left'>{isWeekend && "Weekend "}Subwaydle</Header>
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <Icon className='float-right' name='question circle outline' size='large' link onClick={handleAboutOpen} />
+        <Icon className='float-right' name='cog' size='large' link onClick={handleSettingsOpen} />
       </Segment>
-      <Header as='h5' textAlign='center' className='hint'>Travel from { stations[solution.origin].name } to { stations[solution.destination].name } using 2 transfers.</Header>
+      <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} to {stations[solution.destination].name} using 2 transfers.</Header>
       <Segment basic className='game-grid-wrapper'>
         {
           isNotEnoughRoutes &&
@@ -206,6 +218,7 @@ const App = () => {
       <AboutModal open={isAboutOpen} handleClose={onAboutClose} />
       <SolutionModal isGameWon={isGameWon} open={isSolutionsOpen} handleModalClose={onSolutionsClose} stats={stats} guesses={guesses} />
       <StatsModal open={isStatsOpen} stats={stats} handleClose={onStatsClose} />
+      <SettingsModal open={isSettingsOpen} handleClose={onSettingsClose} />
     </Segment>
   );
 }
