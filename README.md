@@ -16,6 +16,8 @@ yarn start
 
 * Ruby scripts in the `scripts/` directory produce the JSON files in `src/data` that are used by the app. *Warning:* viewing the `src/data` can reveal spoilers to the puzzle! All guesses are checked against the keys in the respective `solutions.json` file to be a valid trip, and the `answers.json` contains an array for the answer of each day. The values of the `solutions.json` object contain an example trip of stations that are traveled through for the trip.
 
+Subway Route Symbols ® Metropolitan Transportation Authority. Used with permission.
+
 Inspirations:
 * [Wordle](https://www.powerlanguage.co.uk/wordle/)
 * [Chengyu Wordle](https://cheeaun.github.io/chengyu-wordle/)
