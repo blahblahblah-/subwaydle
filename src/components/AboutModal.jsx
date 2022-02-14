@@ -9,6 +9,9 @@ const AboutModal = (props) => {
       <Modal.Content scrolling>
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
         <p>Each guess must a be a <strong>valid subway trip involving 3 trains</strong> using available transfers between them.</p>
+        <p>You need to guess a specific set of three trains that can make the trip.</p>
+        <p><strong>Multiple routings may be possible</strong> to make the trip, but your goal is to
+        find <strong>the one routing</strong> that matches the puzzle of the day. The solution <strong>may or may not</strong> be the fastest or efficient routing. It should also be noted that in the New York City Subway system, there are <strong>multiple stations with the same name</strong>.</p>
         <p><strong>No back tracking:</strong> No stations can be traveled through more than once.</p>
         <p><strong>Transfers are only allowed if and when lines diverge</strong> (i.e. if two lines are making the same stops, you can't switch back and forth between them,
           You can switch from a local line to an express line then back to the same local line, but you can't switch from an express line to a local line back to the same express line).</p>
