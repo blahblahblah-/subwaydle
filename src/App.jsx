@@ -179,9 +179,9 @@ const App = () => {
     <Segment basic className='app-wrapper'>
       <Segment clearing basic className='header-wrapper'>
         <Header floated='left'>{isWeekend && "Weekend "}Subwaydle</Header>
+        <Icon className='float-right' name='cog' size='large' link onClick={handleSettingsOpen} />
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <Icon className='float-right' name='question circle outline' size='large' link onClick={handleAboutOpen} />
-        <Icon className='float-right' name='cog' size='large' link onClick={handleSettingsOpen} />
       </Segment>
       <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} to {stations[solution.destination].name} using 2 transfers.</Header>
       <Segment basic className='game-grid-wrapper'>

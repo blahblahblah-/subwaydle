@@ -22,7 +22,7 @@ const CompletedRow = (props) => {
                         <Icon name="arrows alternate horizontal" fitted /> :
                         classNameArrays[index] === 'correct' ?
                           <Icon name="check" fitted /> :
-                          <Icon name="close" fitted />
+                          <Icon name="x" fitted />
                     }
                   </Label>
                 }
