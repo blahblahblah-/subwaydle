@@ -22,7 +22,7 @@ const SolutionModal = (props) => {
   const trip = todaysTrip();
   const solution = todaysSolution();
   const title = isGameWon ? "Yay! You completed today's trip!" : "Aww, looks like you got lost on the subway...";
-  const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+  const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent);
 
   const handleShareClick = () => {
     shareStatus(guesses, !isGameWon);
