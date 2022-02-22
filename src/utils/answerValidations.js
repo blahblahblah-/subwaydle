@@ -143,16 +143,18 @@ export const updateGuessStatuses = (guesses, setCorrectRoutes, setSimilarRoutes,
             }
           }
         })
-      } else if (isSimilarToAnswerTrain(guess[index], index)) {
-        similar.push(guess[index]);
-        if (similarIndexes[guess[index]] && !similarIndexes[guess[index]].includes(index)) {
-          similarIndexes.push(index);
-        } else if (!similarIndexes[guess[index]]) {
-          similarIndexes[guess[index]] = [index];
-        }
       } else {
         remainingRoutes.push(routeId);
         remainingGuessPositions.push(index);
+
+        if (isSimilarToAnswerTrain(guess[index], index)) {
+          similar.push(guess[index]);
+          if (similarIndexes[guess[index]] && !similarIndexes[guess[index]].includes(index)) {
+            similarIndexes.push(index);
+          } else if (!similarIndexes[guess[index]]) {
+            similarIndexes[guess[index]] = [index];
+          }
+        }
       }
     });
 
@@ -180,11 +182,12 @@ export const checkGuessStatuses = (guess) => {
   todaysTrip().forEach((routeId, index) => {
     if (guess[index] === routeId) {
       results[index] = 'correct';
-    } else if (isSimilarToAnswerTrain(guess[index], index)) {
-      results[index] = 'similar';
     } else {
       remainingRoutes.push(routeId);
       remainingGuessPositions.push(index);
+      if (isSimilarToAnswerTrain(guess[index], index)) {
+        results[index] = 'similar';
+      }
     }
   });
 
