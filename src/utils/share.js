@@ -4,7 +4,7 @@ export const shareStatus = (guesses, lost) => {
   const title = isWeekend ? `Subwaydle ${todayGameIndex()} (Weekend Edition)` : `Subwaydle ${todayGameIndex()}`;
   const text = `${title} ${lost ? 'X' : guesses.length}/6\n\n` +
     generateEmojiGrid(guesses);
-  const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent);
+  const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
   if (navigator.share && isIos) {
     navigator.share({text: text});
   } else {
