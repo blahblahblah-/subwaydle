@@ -22,7 +22,9 @@ const CompletedRow = (props) => {
                         <Icon name="arrows alternate horizontal" fitted /> :
                         classNameArrays[index] === 'correct' ?
                           <Icon name="check" fitted /> :
-                          <Icon name="x" fitted />
+                          classNameArrays[index] === 'similar' ?
+                            <Icon name="sync alternate" fitted /> :
+                            <Icon name="x" fitted />
                     }
                   </Label>
                 }

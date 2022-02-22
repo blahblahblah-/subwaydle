@@ -20,6 +20,8 @@ const generateEmojiGrid = (guesses) => {
           switch (s) {
             case 'correct':
               return '🟢';
+            case 'similar':
+              return '🔵';
             case 'present':
               return '🟡';
             default:

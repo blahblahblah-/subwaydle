@@ -4,7 +4,7 @@ import TrainBullet from './TrainBullet';
 import './Key.scss';
 
 const Key = (props) => {
-  const { id, disabled, onClick, isCorrect, isPresent, isAbsent } = props;
+  const { id, disabled, onClick, isCorrect, isSimilar, isPresent, isAbsent } = props;
 
   const handleClick = () => {
     onClick(id);
@@ -14,6 +14,8 @@ const Key = (props) => {
 
   if (isCorrect) {
     className = 'correct';
+  } else if (isSimilar) {
+    className = 'similar';
   } else if (isPresent) {
     className = 'present';
   } else if (isAbsent) {

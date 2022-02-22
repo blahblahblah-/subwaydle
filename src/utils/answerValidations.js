@@ -1,7 +1,9 @@
 import weekdayAnswers from './../data/weekday/answers.json';
 import weekdaySolutions from './../data/weekday/solutions.json';
+import weekdayRoutings from './../data/weekday/routings.json';
 import weekendAnswers from './../data/weekend/answers.json';
 import weekendSolutions from './../data/weekend/solutions.json';
+import weekendRoutings from './../data/weekend/routings.json';
 
 const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
@@ -9,6 +11,62 @@ const DAY_IN_MS = 86400000;
 
 const today = new Date();
 const now = Date.now();
+
+const isSimilarToAnswerTrain = (guess, index) => {
+  let begin;
+  let end;
+  const answer = todaysTrip()[index];
+  const solution = todaysSolution();
+  const routings = todaysRoutings();
+  switch (index) {
+    case 0:
+      begin = solution.origin;
+      end = solution.first_transfer_arrival;
+      break;
+    case 1:
+      begin = solution.first_transfer_departure;
+      end = solution.second_transfer_arrival;
+      break;
+    default:
+      begin = solution.second_transfer_departure;
+      end = solution.destination;
+  }
+
+  const guessSubrouting = retrieveSubrouting(guess, routings, begin, end);
+
+  if (!guessSubrouting) {
+    return false;
+  }
+
+  const answerSubrouting = retrieveSubrouting(answer, routings, begin, end);
+
+  return guessSubrouting.every(s => answerSubrouting.includes(s)) || answerSubrouting.every(s => guessSubrouting.includes(s));
+}
+
+const retrieveSubrouting = (train, routings, begin, end) => {
+  let trainLookup;
+  if (train === 'A') {
+    if (routings['A1'].includes(begin) && routings['A1'].includes(end)) {
+      trainLookup = 'A1';
+    } else {
+      trainLookup = 'A2';
+    }
+  } else {
+    trainLookup = train;
+  }
+
+  const beginIndex = routings[trainLookup].indexOf(begin);
+  const endIndex = routings[trainLookup].indexOf(end);
+
+  if (beginIndex === -1 || endIndex === -1) {
+    return;
+  }
+
+  if (beginIndex < endIndex) {
+    return routings[trainLookup].slice(beginIndex, endIndex + 1);
+  }
+  return routings[trainLookup].slice(endIndex, beginIndex + 1);
+}
 
 export const isWeekend = [0, 6].includes(today.getDay());
 
@@ -29,6 +87,13 @@ export const isValidGuess = (guess) => {
 
 export const todayGameIndex = () => {
   return Math.floor((now - GAME_EPOCH) / DAY_IN_MS);
+}
+
+const todaysRoutings = () => {
+  if (isWeekend) {
+    return weekendRoutings;
+  }
+  return weekdayRoutings;
 }
 
 export const todaysTrip = () => {
@@ -54,10 +119,12 @@ export const isWinningGuess = (guess) => {
   return guess.join('-') === todaysTrip().join('-');
 }
 
-export const updateGuessStatuses = (guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes, correctRoutes, presentRoutes, absentRoutes) => {
+export const updateGuessStatuses = (guesses, setCorrectRoutes, setSimilarRoutes, setPresentRoutes, setAbsentRoutes, setSimilarRoutesIndexes, correctRoutes, similarRoutes, presentRoutes, absentRoutes, similarRoutesIndexes) => {
   const correct = correctRoutes || [];
+  let similar = similarRoutes || [];
   const present = presentRoutes || [];
   const absent = absentRoutes || [];
+  const similarIndexes = similarRoutesIndexes || {};
 
   guesses.forEach((guess) => {
     const remainingRoutes = [];
@@ -66,6 +133,23 @@ export const updateGuessStatuses = (guesses, setCorrectRoutes, setPresentRoutes,
     todaysTrip().forEach((routeId, index) => {
       if (guess[index] === routeId) {
         correct.push(routeId);
+        Object.keys(similarIndexes).forEach((r) => {
+          const s = similarIndexes[r];
+          if (s.includes(index)) {
+            similarIndexes[r] = s.filter(t => t !== index);
+            if (similarIndexes[r].length === 0) {
+              delete similarIndexes[r];
+              similar = similar.filter(t => t !== r);
+            }
+          }
+        })
+      } else if (isSimilarToAnswerTrain(guess[index], index)) {
+        similar.push(guess[index]);
+        if (similarIndexes[guess[index]] && !similarIndexes[guess[index]].includes(index)) {
+          similarIndexes.push(index);
+        } else if (!similarIndexes[guess[index]]) {
+          similarIndexes[guess[index]] = [index];
+        }
       } else {
         remainingRoutes.push(routeId);
         remainingGuessPositions.push(index);
@@ -82,8 +166,10 @@ export const updateGuessStatuses = (guesses, setCorrectRoutes, setPresentRoutes,
   });
 
   setCorrectRoutes(correct);
+  setSimilarRoutes(similar);
   setPresentRoutes(present);
   setAbsentRoutes(absent);
+  setSimilarRoutesIndexes(similarIndexes);
 }
 
 export const checkGuessStatuses = (guess) => {
@@ -94,6 +180,8 @@ export const checkGuessStatuses = (guess) => {
   todaysTrip().forEach((routeId, index) => {
     if (guess[index] === routeId) {
       results[index] = 'correct';
+    } else if (isSimilarToAnswerTrain(guess[index], index)) {
+      results[index] = 'similar';
     } else {
       remainingRoutes.push(routeId);
       remainingGuessPositions.push(index);

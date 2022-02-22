@@ -1,8 +1,10 @@
-import { Modal, Header, Grid, Segment, Icon } from 'semantic-ui-react';
+import { Modal, Header, Grid, Segment, Icon, Label } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
+import { loadSettings } from '../utils/settings';
 
 const AboutModal = (props) => {
   const { open, handleClose } = props;
+  const settings = loadSettings();
   return (
     <Modal closeIcon open={open} onClose={handleClose} size='tiny'>
       <Modal.Header>How to Play</Modal.Header>
@@ -26,6 +28,11 @@ const AboutModal = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder className='correct'>
+                  {settings.display.showAnswerStatusBadges &&
+                    <Label as='a' floating circular size='tiny'>
+                      <Icon name="check" fitted />
+                    </Label>
+                  }
                   <TrainBullet id='A' size='medium' />
                 </Segment>
               </Grid.Column>
@@ -49,11 +56,44 @@ const AboutModal = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
+                  <TrainBullet id='GS' size='medium' />
+                </Segment>
+              </Grid.Column>
+              <Grid.Column>
+                <Segment placeholder className='similar'>
+                  {settings.display.showAnswerStatusBadges &&
+                    <Label as='a' floating circular size='tiny'>
+                      <Icon name="sync alternate" fitted />
+                    </Label>
+                  }
+                  <TrainBullet id='1' size='medium' />
+                </Segment>
+              </Grid.Column>
+              <Grid.Column>
+                <Segment placeholder>
+                  <TrainBullet id='L' size='medium' />
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+        <p>Another train that shares the same routing as the <TrainBullet id='1' size='small' /> train is in that spot of the trip.</p>
+
+        <Segment basic>
+          <Grid centered columns={4} className='game-grid'>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment placeholder>
                   <TrainBullet id='J' size='medium' />
                 </Segment>
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder className='present'>
+                  {settings.display.showAnswerStatusBadges &&
+                    <Label as='a' floating circular size='tiny'>
+                      <Icon name="arrows alternate horizontal" fitted />
+                    </Label>
+                  }
                   <TrainBullet id='5' size='medium' />
                 </Segment>
               </Grid.Column>
@@ -82,6 +122,11 @@ const AboutModal = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Segment placeholder className='absent'>
+                  {settings.display.showAnswerStatusBadges &&
+                    <Label as='a' floating circular size='tiny'>
+                      <Icon name="x" fitted />
+                    </Label>
+                  }
                   <TrainBullet id='4' size='medium' />
                 </Segment>
               </Grid.Column>

@@ -46,6 +46,8 @@ const App = () => {
   const [isGuessInvalid, setIsGuessInvalid] = useState(false);
   const [absentRoutes, setAbsentRoutes] = useState([]);
   const [presentRoutes, setPresentRoutes] = useState([]);
+  const [similarRoutes, setSimilarRoutes] = useState([]);
+  const [similarRoutesIndexes, setSimilarRoutesIndexes] = useState({});
   const [correctRoutes, setCorrectRoutes] = useState([]);
   const [guesses, setGuesses] = useState(() => {
     const loaded = loadGameStateFromLocalStorage();
@@ -64,7 +66,7 @@ const App = () => {
       setIsGameLost(true)
       setIsSolutionsOpen(true);
     }
-    updateGuessStatuses(loaded.guesses, setCorrectRoutes, setPresentRoutes, setAbsentRoutes);
+    updateGuessStatuses(loaded.guesses, setCorrectRoutes, setSimilarRoutes, setPresentRoutes, setAbsentRoutes, setSimilarRoutesIndexes);
     return loaded.guesses;
   });
   const [stats, setStats] = useState(() => loadStats());
@@ -117,11 +119,15 @@ const App = () => {
     updateGuessStatuses(
       [currentGuess],
       setCorrectRoutes,
+      setSimilarRoutes,
       setPresentRoutes,
       setAbsentRoutes,
+      setSimilarRoutesIndexes,
       correctRoutes,
+      similarRoutes,
       presentRoutes,
       absentRoutes,
+      similarRoutesIndexes,
     );
 
     setGuesses(newGuesses);
@@ -211,6 +217,7 @@ const App = () => {
           onDelete={onDelete}
           onEnter={onEnter}
           correctRoutes={correctRoutes}
+          similarRoutes={similarRoutes}
           presentRoutes={presentRoutes}
           absentRoutes={absentRoutes}
         />

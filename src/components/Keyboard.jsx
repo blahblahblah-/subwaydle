@@ -6,7 +6,7 @@ import routes from '../data/routes.json';
 import './Keyboard.scss';
 
 const Keyboard = (props) => {
-  const { noService, onChar, onDelete, onEnter, correctRoutes, presentRoutes, absentRoutes } = props;
+  const { noService, onChar, onDelete, onEnter, correctRoutes, similarRoutes, presentRoutes, absentRoutes } = props;
 
   useEffect(() => {
     const listener = (e) => {
@@ -54,6 +54,7 @@ const Keyboard = (props) => {
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
+                isSimilar={similarRoutes.includes(routeId)}
                 isPresent={presentRoutes.includes(routeId)}
                 isAbsent={absentRoutes.includes(routeId)}
               />
@@ -71,6 +72,7 @@ const Keyboard = (props) => {
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
+                isSimilar={similarRoutes.includes(routeId)}
                 isPresent={presentRoutes.includes(routeId)}
                 isAbsent={absentRoutes.includes(routeId)}
               />
@@ -88,6 +90,7 @@ const Keyboard = (props) => {
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
+                isSimilar={similarRoutes.includes(routeId)}
                 isPresent={presentRoutes.includes(routeId)}
                 isAbsent={absentRoutes.includes(routeId)}
               />
@@ -110,6 +113,7 @@ const Keyboard = (props) => {
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
+                isSimilar={similarRoutes.includes(routeId)}
                 isPresent={presentRoutes.includes(routeId)}
                 isAbsent={absentRoutes.includes(routeId)}
               />
