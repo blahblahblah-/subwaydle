@@ -164,10 +164,10 @@ patterns.each do |p, routes|
   puts "Writing to JSON file - #{answers.size} entries"
 
   picked_solutions = solutions.map { |k, v|
-    [k.join("-"), v.sort_by { |s| s[:travel_distance_factor] }.slice(0, v.size / 3).shuffle.first]
+    [k.join("-"), v.sort_by { |s| s[:travel_distance_factor] }.slice(0, [1, v.size / 3].max).shuffle.first]
   }.to_h
 
-  bad_solutions = picked_solutions.select { |_, v| v[:travel_distance_factor] == 100}.map { |k, _| k}
+  bad_solutions = picked_solutions.select { |_, v| v[:travel_distance_factor] == 100}.map { |k, _| k}.map { |k| k.split("-") }
 
   file = File.open("../src/data/#{p}/answers.json", "w")
   file.puts JSON.pretty_generate((answers.to_a - bad_solutions).shuffle)
