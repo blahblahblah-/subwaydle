@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Header, Segment, Icon, Message } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 
 import GameGrid from './components/GameGrid';
 import Keyboard from './components/Keyboard';
