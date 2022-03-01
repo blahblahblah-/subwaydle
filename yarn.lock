@@ -7497,6 +7497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery@npm:x.*":
+  version: 3.6.0
+  resolution: "jquery@npm:3.6.0"
+  checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -10613,6 +10620,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semantic-ui-css@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "semantic-ui-css@npm:2.4.1"
+  dependencies:
+    jquery: x.*
+  checksum: 6351d9bfbeed667a39b9cde08372865bd04612450103aabff174bc46558ad1ac123157cab2716670019abf5a70f56a77d79d082b4043d8893ed350b9a6fed837
+  languageName: node
+  linkType: hard
+
 "semantic-ui-react@npm:^2.1.1":
   version: 2.1.1
   resolution: "semantic-ui-react@npm:2.1.1"
@@ -11231,6 +11247,7 @@ __metadata:
     react-dom: ^17.0.2
     react-scripts: ^5.0.0
     sass: ^1.49.0
+    semantic-ui-css: ^2.4.1
     semantic-ui-react: ^2.1.1
     web-vitals: ^2.1.0
   languageName: unknown
