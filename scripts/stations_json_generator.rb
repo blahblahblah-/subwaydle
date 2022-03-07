@@ -10,6 +10,7 @@ csv.each do |row|
     name: row['Stop Name'].gsub(/ - /, '-').gsub(/-/, '–'),
     longitude: row['GTFS Longitude'].to_f,
     latitude: row['GTFS Latitude'].to_f,
+    borough: row['Borough'],
   }
 end
 
