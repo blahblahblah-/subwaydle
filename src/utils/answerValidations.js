@@ -7,7 +7,6 @@ import weekendRoutings from './../data/weekend/routings.json';
 
 const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
-const DAY_IN_MS = 86400000;
 
 const today = new Date();
 const now = Date.now();
@@ -86,8 +85,20 @@ export const isValidGuess = (guess) => {
 }
 
 export const todayGameIndex = () => {
-  return Math.floor((now - GAME_EPOCH) / DAY_IN_MS);
+  return Math.floor(daysBetween(GAME_EPOCH, now));
 }
+
+const treatAsUTC = (date) => {
+  const result = new Date(date);
+  result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+  return result;
+}
+
+const daysBetween = (startDate, endDate) => {
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
+
 
 const todaysRoutings = () => {
   if (isWeekend) {
