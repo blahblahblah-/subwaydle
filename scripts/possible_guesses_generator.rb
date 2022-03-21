@@ -111,6 +111,18 @@ patterns.each do |p, routes|
                             end
                           end
 
+                          if !route_exists_from_begin_to_end
+                            ([transfers[s3]].flatten.compact + [s3]).each do |ts|
+                              route_exists_from_begin_to_end = station_stops[ts].include?(r1)
+                            end
+                          end
+
+                          if !route_exists_from_begin_to_end
+                            ([transfers[s4]].flatten.compact + [s4]).each do |ts|
+                              route_exists_from_begin_to_end = station_stops[ts].include?(r2)
+                            end
+                          end
+
                           combo = [r1, r2, r3].map do |x|
                             if x.start_with?("A")
                               "A"
