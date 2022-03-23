@@ -68,7 +68,7 @@ patterns.each do |p, routes|
               end
               i2 = routings[r2].index(t1)
               [routings[r2][i2..-1], routings[r2][0..i2].reverse].each do |subrouting2|
-                next if next_station1 && subrouting2.include?(next_station1)
+                next if next_station1 && (subrouting2.include?(next_station1) || [transfers[next_station1]].flatten.compact.any? { |s| subrouting2.include?(s) })
                 subrouting2.each_with_index do |s3, i2n|
                   next if i2n == 0
                   break if subrouting1.include?(s3) || [transfers[s3]].flatten.compact.any? { |s| path1.include?(s) }
@@ -89,7 +89,7 @@ patterns.each do |p, routes|
                       i3 = routings[r3].index(t2)
 
                       [routings[r3][i3..-1], routings[r3][0..i3].reverse].each do |subrouting3|
-                        next if next_station2 && subrouting3.include?(next_station2)
+                        next if next_station2 && (subrouting3.include?(next_station2) || [transfers[next_station2]].flatten.compact.any? { |s| subrouting3.include?(s) })
                         subrouting3.each_with_index do |s4, i3n|
                           next if i3n == 0
                           break if subrouting1.include?(s4) || subrouting2.include?(s4) || [transfers[s4]].flatten.compact.any? { |s| path1.include?(s) } || [transfers[s4]].flatten.compact.any? { |s| path2.include?(s) }
@@ -108,18 +108,6 @@ patterns.each do |p, routes|
                                   end
                                 end
                               end
-                            end
-                          end
-
-                          if !route_exists_from_begin_to_end
-                            ([transfers[s3]].flatten.compact + [s3]).each do |ts|
-                              route_exists_from_begin_to_end = station_stops[ts].include?(r1)
-                            end
-                          end
-
-                          if !route_exists_from_begin_to_end
-                            ([transfers[s4]].flatten.compact + [s4]).each do |ts|
-                              route_exists_from_begin_to_end = station_stops[ts].include?(r2)
                             end
                           end
 
