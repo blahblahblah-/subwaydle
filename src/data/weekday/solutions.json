@@ -24453,13 +24453,13 @@
     "travel_distance_factor": 1.3382443937054205
   },
   "L-2-F": {
-    "origin": "L03",
+    "origin": "L15",
     "first_transfer_arrival": "L02",
     "first_transfer_departure": "132",
     "second_transfer_arrival": "127",
     "second_transfer_departure": "D16",
-    "destination": "D15",
-    "travel_distance_factor": 1.419183748279284
+    "destination": "D17",
+    "travel_distance_factor": 1.437645292972679
   },
   "L-2-M": {
     "origin": "L08",
