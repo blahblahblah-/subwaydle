@@ -8784,13 +8784,13 @@
     "travel_distance_factor": 1.1082808498668062
   },
   "Q-E-B": {
-    "origin": "D30",
+    "origin": "D33",
     "first_transfer_arrival": "R16",
     "first_transfer_departure": "A27",
     "second_transfer_arrival": "D14",
     "second_transfer_departure": "D14",
-    "destination": "A18",
-    "travel_distance_factor": 1.0528683682704785
+    "destination": "A21",
+    "travel_distance_factor": 1.0392500071533965
   },
   "Q-E-D": {
     "origin": "D27",
