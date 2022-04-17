@@ -4,6 +4,7 @@ import weekdayRoutings from './../data/weekday/routings.json';
 import weekendAnswers from './../data/weekend/answers.json';
 import weekendSolutions from './../data/weekend/solutions.json';
 import weekendRoutings from './../data/weekend/routings.json';
+import transfers from './../data/transfers.json';
 
 const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
@@ -39,7 +40,7 @@ const isSimilarToAnswerTrain = (guess, index) => {
 
   const answerSubrouting = retrieveSubrouting(answer, routings, begin, end);
 
-  return guessSubrouting.every(s => answerSubrouting.includes(s)) || answerSubrouting.every(s => guessSubrouting.includes(s));
+  return guessSubrouting.some(s => answerSubrouting.some(t => t === s || (transfers[t] && transfers[t].includes(s)))) || answerSubrouting.some(s => guessSubrouting.some(t => t === s || (transfers[t] && transfers[t].includes(s))));
 }
 
 const retrieveSubrouting = (train, routings, begin, end) => {
@@ -54,8 +55,8 @@ const retrieveSubrouting = (train, routings, begin, end) => {
     trainLookup = train;
   }
 
-  const beginIndex = routings[trainLookup].indexOf(begin);
-  const endIndex = routings[trainLookup].indexOf(end);
+  const beginIndex = [begin, transfers[begin]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1) || -1;
+  const endIndex = [end, transfers[end]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1) || -1;
 
   if (beginIndex === -1 || endIndex === -1) {
     return;
