@@ -55,10 +55,10 @@ const retrieveSubrouting = (train, routings, begin, end) => {
     trainLookup = train;
   }
 
-  const beginIndex = [begin, transfers[begin]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1) || -1;
-  const endIndex = [end, transfers[end]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1) || -1;
+  const beginIndex = [begin, transfers[begin]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1);
+  const endIndex = [end, transfers[end]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1);
 
-  if (beginIndex === -1 || endIndex === -1) {
+  if (beginIndex == null || endIndex === null) {
     return;
   }
 
