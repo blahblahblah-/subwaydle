@@ -58,7 +58,7 @@ const retrieveSubrouting = (train, routings, begin, end) => {
   const beginIndex = [begin, transfers[begin]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1);
   const endIndex = [end, transfers[end]].flat().filter(n => n).map(s => routings[trainLookup].indexOf(s)).find(i => i > -1);
 
-  if (beginIndex == null || endIndex === null) {
+  if (beginIndex == null || endIndex == null) {
     return;
   }
 
