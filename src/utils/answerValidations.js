@@ -40,7 +40,10 @@ const isSimilarToAnswerTrain = (guess, index) => {
 
   const answerSubrouting = retrieveSubrouting(answer, routings, begin, end);
 
-  return guessSubrouting.some(s => answerSubrouting.some(t => t === s)) || answerSubrouting.some(s => guessSubrouting.some(t => t === s));
+  return guessSubrouting.some(s => answerSubrouting.some(t => t === s && t !== begin && t !== end)) ||
+    answerSubrouting.some(s => guessSubrouting.some(t => t === s && t !== begin && t !== end)) ||
+    (guessSubrouting.includes(begin) && guessSubrouting.includes(end) && answerSubrouting.includes(begin) && answerSubrouting.includes(end))
+  ;
 }
 
 const retrieveSubrouting = (train, routings, begin, end) => {
