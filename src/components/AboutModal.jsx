@@ -146,6 +146,8 @@ const AboutModal = (props) => {
 
         <Header as='h4'>About</Header>
 
+        <p>Subwaydles around the world: <a href="https://hk.subwaydle.com" target="_blank">Hong Kong</a>, <a href="https://london.subwaydle.com" target="_blank">London</a>.</p>
+
         <p>Inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>,
           its <a href="https://github.com/hannahcode/wordle" target="_blank">open-source clone</a>, <a href="https://nerdlegame.com/" target="_blank">Nerdle</a>,
           and <a href="https://www.nytransitmuseum.org/">New York Transit Museum</a> Trivia Nights.</p>
