@@ -3,13 +3,14 @@ require 'json'
 
 stations = {}
 
-stations_csv = File.read('data/common/stations.csv')
+stations_csv = File.read('data/common/Stations.csv')
 csv = CSV.parse(stations_csv, headers: true)
 csv.each do |row|
   stations[row['GTFS Stop ID']] = {
     name: row['Stop Name'].gsub(/ - /, '-').gsub(/-/, '–'),
     longitude: row['GTFS Longitude'].to_f,
     latitude: row['GTFS Latitude'].to_f,
+    borough: row['Borough'],
   }
 end
 

@@ -188,7 +188,7 @@ const App = () => {
         <Icon className='float-right' name='chart bar' size='large' link onClick={handleStatsOpen} />
         <Icon className='float-right' name='question circle outline' size='large' link onClick={handleAboutOpen} />
       </Segment>
-      <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} to {stations[solution.destination].name} using 2 transfers.</Header>
+      <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} ({stations[solution.origin].borough}) to {stations[solution.destination].name} ({stations[solution.destination].borough}) using 2 transfers.</Header>
       <Segment basic className='game-grid-wrapper'>
         {
           isNotEnoughRoutes &&
