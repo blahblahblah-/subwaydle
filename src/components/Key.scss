@@ -16,6 +16,27 @@
   .absent {
     background-color: #787c7e;
   }
+
+  .inverted {
+    background-color: #818384;
+    box-shadow: none!important;
+  }
+
+  .inverted.correct {
+    background-color: #538d4e;
+  }
+
+  .inverted.similar {
+    background-color: #3c9af5;
+  }
+
+  .inverted.present {
+    background-color: #b59f3b;
+  }
+
+  .inverted.absent {
+    background-color: #3a3a3c;
+  }
 }
 
 .ui.doubling.grid>.row>.column.key, .ui.grid>.doubling.row>.column.key {

@@ -5,7 +5,8 @@ import {
 
 export const defaultSettings = {
   display: {
-    showAnswerStatusBadges: false
+    showAnswerStatusBadges: false,
+    darkMode:  window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
   }
 }
 

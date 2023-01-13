@@ -2,11 +2,13 @@ import { Modal, Header, Grid, Segment, Icon, Label } from 'semantic-ui-react';
 import TrainBullet from './TrainBullet';
 import { loadSettings } from '../utils/settings';
 
+import './AboutModal.scss';
+
 const AboutModal = (props) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, isDarkMode } = props;
   const settings = loadSettings();
   return (
-    <Modal closeIcon open={open} onClose={handleClose} size='tiny'>
+    <Modal closeIcon open={open} onClose={handleClose} size='tiny' className={isDarkMode ? 'about-modal dark' : 'about-modal'}>
       <Modal.Header>How to Play</Modal.Header>
       <Modal.Content scrolling>
         <p>Guess the <strong>SUBWAYDLE</strong> in 6 tries.</p>
@@ -15,7 +17,7 @@ const AboutModal = (props) => {
 
         <Header as='h4'>Examples</Header>
         <Segment basic>
-          <Grid centered columns={4} className='game-grid'>
+          <Grid centered columns={4} className={isDarkMode ? 'game-grid dark' : 'game-grid'}>
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder className='correct'>
@@ -43,7 +45,7 @@ const AboutModal = (props) => {
         <p>The <TrainBullet id='A' size='small' /> train is in the correct spot of the trip.</p>
 
         <Segment basic>
-          <Grid centered columns={4} className='game-grid'>
+          <Grid centered columns={4} className={isDarkMode ? 'game-grid dark' : 'game-grid'}>
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
@@ -71,7 +73,7 @@ const AboutModal = (props) => {
         <p>Another train that shares the same routing as the <TrainBullet id='1' size='small' /> train is in that spot of the trip.</p>
 
         <Segment basic>
-          <Grid centered columns={4} className='game-grid'>
+          <Grid centered columns={4} className={isDarkMode ? 'game-grid dark' : 'game-grid'}>
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
@@ -99,7 +101,7 @@ const AboutModal = (props) => {
         <p>The <TrainBullet id='5' size='small' /> train is part of the trip, but in the wrong spot.</p>
 
         <Segment basic>
-          <Grid centered columns={4} className='game-grid'>
+          <Grid centered columns={4} className={isDarkMode ? 'game-grid dark' : 'game-grid'}>
             <Grid.Row>
               <Grid.Column>
                 <Segment placeholder>
