@@ -2,12 +2,12 @@ import { Header, Statistic } from 'semantic-ui-react';
 import './StatsBox.scss'
 
 const StatsBox = (props) => {
-  const { stats } = props;
+  const { isDarkMode, stats } = props;
   return (
     <>
       <Header as='h3'>Statistics</Header>
       <div className='stats-box'>
-        <Statistic.Group size='mini'>
+        <Statistic.Group size='mini' inverted={isDarkMode}>
           <Statistic>
             <Statistic.Value>{ stats.totalGames }</Statistic.Value>
             <Statistic.Label>Played</Statistic.Label>

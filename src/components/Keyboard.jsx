@@ -6,7 +6,11 @@ import routes from '../data/routes.json';
 import './Keyboard.scss';
 
 const Keyboard = (props) => {
-  const { noService, onChar, onDelete, onEnter, correctRoutes, similarRoutes, presentRoutes, absentRoutes } = props;
+  const {
+    noService, isDarkMode,
+    onChar, onDelete, onEnter,
+    correctRoutes, similarRoutes, presentRoutes, absentRoutes
+  } = props;
 
   useEffect(() => {
     const listener = (e) => {
@@ -51,6 +55,7 @@ const Keyboard = (props) => {
               <Key
                 id={routeId}
                 key={routeId}
+                isDarkMode={isDarkMode}
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
@@ -69,6 +74,7 @@ const Keyboard = (props) => {
               <Key
                 id={routeId}
                 key={routeId}
+                isDarkMode={isDarkMode}
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
@@ -87,6 +93,7 @@ const Keyboard = (props) => {
               <Key
                 id={routeId}
                 key={routeId}
+                isDarkMode={isDarkMode}
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
@@ -100,7 +107,7 @@ const Keyboard = (props) => {
         </Grid.Row>
         <Grid.Row columns={6}>
           <Grid.Column className='key' stretched>
-            <Button onClick={handleEnter}>
+            <Button onClick={handleEnter} inverted={isDarkMode}>
               Enter
             </Button>
           </Grid.Column>
@@ -110,6 +117,7 @@ const Keyboard = (props) => {
               <Key
                 id={routeId}
                 key={routeId}
+                isDarkMode={isDarkMode}
                 onClick={onChar}
                 disabled={noService.includes(routeId)}
                 isCorrect={correctRoutes.includes(routeId)}
@@ -121,7 +129,7 @@ const Keyboard = (props) => {
           })
         }
           <Grid.Column className='key' stretched>
-            <Button onClick={handleDelete}>
+            <Button onClick={handleDelete} inverted={isDarkMode}>
               Delete
             </Button>
           </Grid.Column>

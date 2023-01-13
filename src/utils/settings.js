@@ -5,7 +5,8 @@ import {
 
 export const defaultSettings = {
   display: {
-    showAnswerStatusBadges: false
+    showAnswerStatusBadges: false,
+    darkMode: false,
   }
 }
 

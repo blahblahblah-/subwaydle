@@ -2,7 +2,7 @@ import { Header, Grid, Progress } from 'semantic-ui-react';
 import './StatsHistogram.scss';
 
 const StatsHistogram = (props) => {
-  const { stats } = props;
+  const { isDarkMode, stats } = props;
   const max = Math.max(...stats.winDistribution);
   return (
     <>
@@ -17,7 +17,7 @@ const StatsHistogram = (props) => {
                     { i + 1}
                   </Grid.Column>
                   <Grid.Column width={14}>
-                    <Progress progress='value' success value={value} total={max} />
+                    <Progress progress='value' success inverted={isDarkMode} value={value} total={max} />
                   </Grid.Column>
                 </Grid.Row>
               )
