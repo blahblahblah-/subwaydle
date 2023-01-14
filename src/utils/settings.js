@@ -6,7 +6,7 @@ import {
 export const defaultSettings = {
   display: {
     showAnswerStatusBadges: false,
-    darkMode: false,
+    darkMode:  window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
   }
 }
 

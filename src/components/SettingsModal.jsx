@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal, Header, Grid, Checkbox, Icon, Popup } from 'semantic-ui-react';
 import { saveSettings, loadSettings, defaultSettings } from '../utils/settings';
+import { todayGameIndex, NIGHT_GAMES } from '../utils/answerValidations';
 
 import './SettingsModal.scss'
 
@@ -51,17 +52,20 @@ const SettingsModal = (props, state) => {
                 checked={settings.display.showAnswerStatusBadges} />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column className='fourteen wide'>
-              Dark Mode
-            </Grid.Column>
-            <Grid.Column className='two wide'>
-              <Checkbox toggle className='float-right'
-                name='darkModeToggle'
-                onChange={darkModeToggleChanged}
-                checked={settings.display.darkMode} />
-            </Grid.Column>
-          </Grid.Row>
+          {
+            todayGameIndex() > Math.max(...NIGHT_GAMES) &&
+            <Grid.Row>
+              <Grid.Column className='fourteen wide'>
+                Dark Mode
+              </Grid.Column>
+              <Grid.Column className='two wide'>
+                <Checkbox toggle className='float-right'
+                  name='darkModeToggle'
+                  onChange={darkModeToggleChanged}
+                  checked={settings.display.darkMode} />
+              </Grid.Column>
+            </Grid.Row>
+          }
         </Grid>
       </Modal.Content>
     </Modal>

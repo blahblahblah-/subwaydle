@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Header, Segment, Icon, Message } from 'semantic-ui-react';
+import { Header, Segment, Icon, Message, Popup } from 'semantic-ui-react';
 
 import GameGrid from './components/GameGrid';
 import Keyboard from './components/Keyboard';
@@ -9,6 +9,7 @@ import StatsModal from './components/StatsModal';
 import SettingsModal from './components/SettingsModal';
 
 import {
+  isNight,
   isWeekend,
   routesWithNoService,
   isValidGuess,
@@ -16,6 +17,8 @@ import {
   updateGuessStatuses,
   flattenedTodaysTrip,
   todaysSolution,
+  todayGameIndex,
+  NIGHT_GAMES,
 } from './utils/answerValidations';
 
 import {
@@ -183,13 +186,24 @@ const App = () => {
     setIsAboutOpen(true);
   }
 
-  const isDarkMode = settings.display.darkMode;
+  const isDarkMode = (NIGHT_GAMES.includes(todayGameIndex())) || (todayGameIndex() > Math.max(...NIGHT_GAMES) && settings.display.darkMode);
 
   return (
     <div className={"outer-app-wrapper " + (isDarkMode ? 'dark' : '')}>
       <Segment basic className='app-wrapper' inverted={isDarkMode}>
         <Segment clearing basic className='header-wrapper' inverted={isDarkMode}>
-          <Header floated='left'>{isWeekend && "Weekend "}Subwaydle</Header>
+          <Header floated='left'>
+            {isNight && "Late Night "}
+            {(!isNight && isWeekend) && "Weekend "}Subwaydle
+            {
+               isNight &&
+               <Popup inverted content="You can now play Subwaydle in Dark Mode! Try solving this weekend's Subwaydle with late night routing patterns."
+                 trigger={
+                   <sup>[?]</sup>
+                 }
+               />
+             }
+          </Header>
           <Icon className='float-right' inverted={isDarkMode} name='cog' size='large' link onClick={handleSettingsOpen} />
           <Icon className='float-right' inverted={isDarkMode} name='chart bar' size='large' link onClick={handleStatsOpen} />
           <Icon className='float-right' inverted={isDarkMode} name='question circle outline' size='large' link onClick={handleAboutOpen} />

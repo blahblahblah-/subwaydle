@@ -4,10 +4,15 @@ import weekdayRoutings from './../data/weekday/routings.json';
 import weekendAnswers from './../data/weekend/answers.json';
 import weekendSolutions from './../data/weekend/solutions.json';
 import weekendRoutings from './../data/weekend/routings.json';
+import nightAnswers from './../data/night/answers.json';
+import nightSolutions from './../data/night/solutions.json';
+import nightRoutings from './../data/night/routings.json';
 import transfers from './../data/transfers.json';
 
 const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
+const ROUTES_WITH_NO_NIGHT_SERVICE = ['B', 'C', 'W', 'GS'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
+export const NIGHT_GAMES = [350, 351];
 
 const today = new Date();
 const now = Date.now();
@@ -74,6 +79,9 @@ const retrieveSubrouting = (train, routings, begin, end) => {
 export const isWeekend = [0, 6].includes(today.getDay());
 
 export const routesWithNoService = () => {
+  if (isNight) {
+    return ROUTES_WITH_NO_NIGHT_SERVICE;
+  }
   if (isWeekend) {
     return ROUTES_WITH_NO_WEEKEND_SERVICE;
   }
@@ -82,6 +90,9 @@ export const routesWithNoService = () => {
 
 export const isValidGuess = (guess) => {
   const flattenedGuess = guess.join('-');
+  if (isNight) {
+    return !!nightSolutions[flattenedGuess];
+  }
   if (isWeekend) {
     return !!weekendSolutions[flattenedGuess];
   }
@@ -103,8 +114,12 @@ const daysBetween = (startDate, endDate) => {
   return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
 }
 
+export const isNight = NIGHT_GAMES.includes(todayGameIndex());
 
 const todaysRoutings = () => {
+  if (isNight) {
+    return nightRoutings;
+  }
   if (isWeekend) {
     return weekendRoutings;
   }
@@ -113,6 +128,9 @@ const todaysRoutings = () => {
 
 export const todaysTrip = () => {
   const index = todayGameIndex();
+  if (isNight) {
+    return nightAnswers[index % nightAnswers.length];
+  }
   if (isWeekend) {
     return weekendAnswers[index % weekendAnswers.length];
   }
@@ -124,6 +142,9 @@ export const flattenedTodaysTrip = () => {
 }
 
 export const todaysSolution = () => {
+  if (isNight) {
+    return weekendSolutions[todaysTrip().join("-")];
+  }
   if (isWeekend) {
     return weekendSolutions[todaysTrip().join("-")];
   }
