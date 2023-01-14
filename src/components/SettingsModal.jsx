@@ -39,6 +39,7 @@ const SettingsModal = (props, state) => {
             <Grid.Column className='fourteen wide'>
               Show answer status badges&nbsp;
               <Popup inverted={isDarkMode} content='Having trouble seeing the difference in the colors? Turn on status badges!'
+                position="bottom center"
                 trigger={
                   <Icon inverted={isDarkMode} name='question circle outline' size='large' link
                     onHover={showAnswerStatusBadgesHoverDetail} />
@@ -56,7 +57,7 @@ const SettingsModal = (props, state) => {
             todayGameIndex() > Math.max(...NIGHT_GAMES) &&
             <Grid.Row>
               <Grid.Column className='fourteen wide'>
-                Dark Mode
+                Dark mode
               </Grid.Column>
               <Grid.Column className='two wide'>
                 <Checkbox toggle className='float-right'
