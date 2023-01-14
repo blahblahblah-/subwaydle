@@ -197,11 +197,17 @@ const App = () => {
             {(!isNight && isWeekend) && "Weekend "}Subwaydle
             {
                isNight &&
-               <Popup inverted content="You can now play Subwaydle in Dark Mode! Try solving this weekend's Subwaydle with late night routing patterns."
+               <Popup
+               position='bottom center'
                  trigger={
                    <sup>[?]</sup>
                  }
-               />
+               >
+               <Popup.Content>
+                 <p>Subwaydle now available in Dark Mode!</p>
+                 <p>Try solving this weekend's Subwaydle with late night routing patterns.</p>
+               </Popup.Content>
+               </Popup>
              }
           </Header>
           <Icon className='float-right' inverted={isDarkMode} name='cog' size='large' link onClick={handleSettingsOpen} />
