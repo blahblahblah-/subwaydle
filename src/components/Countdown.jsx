@@ -23,11 +23,11 @@ const Countdown = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const time = (midnight - Date.now()) / 1000
-      setCountDown(time);
       if (time <= 0) {
         // eslint-disable-next-line no-restricted-globals
         location.reload();
       }
+      setCountDown(time);
     }, 1000);
 
     return () => clearInterval(interval);
