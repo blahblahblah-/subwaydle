@@ -22,7 +22,12 @@ const Countdown = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown((midnight - Date.now()) / 1000);
+      const time = (midnight - Date.now()) / 1000
+      setCountDown(time);
+      if (time <= 0) {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      }
     }, 1000);
 
     return () => clearInterval(interval);
