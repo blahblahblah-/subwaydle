@@ -13,6 +13,7 @@ const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
 const ROUTES_WITH_NO_NIGHT_SERVICE = ['B', 'C', 'W', 'GS'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
 export const NIGHT_GAMES = [350, 351];
+const DEKALB_AV_FLATBUSH_STOP = "R30";
 
 const today = new Date();
 const now = Date.now();
@@ -49,8 +50,8 @@ const isSimilarToAnswerTrain = (guess, index) => {
     return true;
   }
 
-  const guessSubroutingInner = guessSubrouting.slice(1, guessSubrouting.length);
-  const answerSubroutingInner = answerSubrouting.slice(1, answerSubrouting.length);
+  const guessSubroutingInner = guessSubrouting.slice(1, guessSubrouting.length).filter(s => s !== DEKALB_AV_FLATBUSH_STOP);
+  const answerSubroutingInner = answerSubrouting.slice(1, answerSubrouting.length).filter(s => s !== DEKALB_AV_FLATBUSH_STOP);
 
 
   if (guessSubroutingInner.every(s => answerSubroutingInner.includes(s)) || answerSubroutingInner.every(s => guessSubroutingInner.includes(s))) {
