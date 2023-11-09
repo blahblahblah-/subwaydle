@@ -46,13 +46,8 @@ const isSimilarToAnswerTrain = (guess, index) => {
 
   const answerSubrouting = retrieveSubrouting(answer, routings, begin, end);
 
-  if (guessSubrouting.includes(begin) && guessSubrouting.includes(end) && answerSubrouting.includes(begin) && answerSubrouting.includes(end)) {
-    return true;
-  }
-
   const guessSubroutingInner = guessSubrouting.slice(1, guessSubrouting.length).filter(s => s !== DEKALB_AV_FLATBUSH_STOP);
   const answerSubroutingInner = answerSubrouting.slice(1, answerSubrouting.length).filter(s => s !== DEKALB_AV_FLATBUSH_STOP);
-
 
   if (guessSubroutingInner.every(s => answerSubroutingInner.includes(s)) || answerSubroutingInner.every(s => guessSubroutingInner.includes(s))) {
     return (guessSubrouting.includes(begin) && answerSubrouting.includes(begin)) || (guessSubrouting.includes(end) && answerSubrouting.includes(end));
