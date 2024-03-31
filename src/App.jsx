@@ -9,6 +9,7 @@ import StatsModal from './components/StatsModal';
 import SettingsModal from './components/SettingsModal';
 
 import {
+  isAccessible,
   isNight,
   isWeekend,
   routesWithNoService,
@@ -195,6 +196,7 @@ const App = () => {
           <Header floated='left'>
             {isNight && "Late Night "}
             {(!isNight && isWeekend) && "Weekend "}Subwaydle
+            {isAccessible && " ♿️"}
             {
                isNight &&
                <Popup
@@ -214,7 +216,12 @@ const App = () => {
           <Icon className='float-right' inverted={isDarkMode} name='chart bar' size='large' link onClick={handleStatsOpen} />
           <Icon className='float-right' inverted={isDarkMode} name='question circle outline' size='large' link onClick={handleAboutOpen} />
         </Segment>
-        <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} to {stations[solution.destination].name} using 2 transfers.</Header>
+        { !isAccessible &&
+          <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} to {stations[solution.destination].name} using 2 transfers.</Header>
+        }
+        { isAccessible &&
+          <Header as='h5' textAlign='center' className='hint'>Travel from {stations[solution.origin].name} ♿️ to {stations[solution.destination].name} ♿️ using 2 acceessible transfers.</Header>
+        }
         <Segment basic className='game-grid-wrapper'>
           {
             isNotEnoughRoutes &&

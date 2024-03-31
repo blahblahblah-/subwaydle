@@ -1,7 +1,15 @@
-import { todayGameIndex, checkGuessStatuses, isNight, isWeekend } from './answerValidations';
+import { todayGameIndex, checkGuessStatuses, isNight, isWeekend, isAccessible } from './answerValidations';
 
 export const shareStatus = (guesses, lost) => {
-  const title = isNight ? `Subwaydle ${todayGameIndex()} (Late Night Edition)` : (isWeekend ? `Subwaydle ${todayGameIndex()} (Weekend Edition)` : `Subwaydle ${todayGameIndex()}`);
+  let title = `Subwaydle ${todayGameIndex()}`;
+
+  if (isNight) {
+    title = `Subwaydle ${todayGameIndex()} (Late Night Edition)`;
+  } else if (isWeekend) {
+    title = `Subwaydle ${todayGameIndex()} (Weekend Edition)`;
+  } else if (isAccessible) {
+    title = `Subwaydle ${todayGameIndex()} ♿️`
+  }
   const text = `${title} ${lost ? 'X' : guesses.length}/6\n\n` +
     generateEmojiGrid(guesses);
   const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));

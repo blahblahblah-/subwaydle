@@ -6,7 +6,7 @@ import TrainBullet from './TrainBullet';
 import MapFrame from './MapFrame';
 import Countdown from './Countdown';
 
-import { todaysTrip, todaysSolution } from '../utils/answerValidations';
+import { todaysTrip, todaysSolution, isAccessible } from '../utils/answerValidations';
 import { shareStatus } from '../utils/share';
 
 import stations from "../data/stations.json";
@@ -68,9 +68,20 @@ const SolutionModal = (props) => {
         <Modal.Description>
         <MapFrame />
           <Header as='h3'>Today's Journey</Header>
-          <TrainBullet id={trip[0]} size='small' /> from { stations[solution.origin].name } to { stations[solution.first_transfer_arrival].name }<br />
-          <TrainBullet id={trip[1]} size='small' /> from { stations[solution.first_transfer_departure].name } to { stations[solution.second_transfer_arrival].name }<br />
-          <TrainBullet id={trip[2]} size='small' /> from { stations[solution.second_transfer_departure].name } to { stations[solution.destination].name }
+          { !isAccessible &&
+            <>
+              <TrainBullet id={trip[0]} size='small' /> from { stations[solution.origin].name } to { stations[solution.first_transfer_arrival].name }<br />
+              <TrainBullet id={trip[1]} size='small' /> from { stations[solution.first_transfer_departure].name } to { stations[solution.second_transfer_arrival].name }<br />
+              <TrainBullet id={trip[2]} size='small' /> from { stations[solution.second_transfer_departure].name } to { stations[solution.destination].name }
+            </>
+          }
+          { isAccessible &&
+            <>
+              <TrainBullet id={trip[0]} size='small' /> from { stations[solution.origin].name } ♿️ to { stations[solution.first_transfer_arrival].name } ♿️<br />
+              <TrainBullet id={trip[1]} size='small' /> from { stations[solution.first_transfer_departure].name } ♿️ to { stations[solution.second_transfer_arrival].name } ♿️<br />
+              <TrainBullet id={trip[2]} size='small' /> from { stations[solution.second_transfer_departure].name } ♿️ to { stations[solution.destination].name } ♿️
+            </>
+          }
           <Stats isDarkMode={isDarkMode} stats={stats} />
           <Countdown />
           <Button positive icon labelPosition='right' onClick={handleShareClick} className='share-btn'>

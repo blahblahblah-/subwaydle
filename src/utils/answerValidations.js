@@ -7,12 +7,16 @@ import weekendRoutings from './../data/weekend/routings.json';
 import nightAnswers from './../data/night/answers.json';
 import nightSolutions from './../data/night/solutions.json';
 import nightRoutings from './../data/night/routings.json';
+import accessibleAnswers from './../data/accessible/answers.json';
+import accessibleSolutions from './../data/accessible/solutions.json';
+import accessibleRoutings from './../data/accessible/routings.json';
 import transfers from './../data/transfers.json';
 
 const ROUTES_WITH_NO_WEEKEND_SERVICE = ['B', 'W'];
 const ROUTES_WITH_NO_NIGHT_SERVICE = ['B', 'C', 'W', 'GS'];
 const GAME_EPOCH = new Date('January 29, 2022 00:00:00').valueOf();
 export const NIGHT_GAMES = [350, 351];
+const ACCESSIBLE_GAME = 793;
 const DEKALB_AV_FLATBUSH_STOP = "R30";
 
 const today = new Date();
@@ -98,6 +102,9 @@ export const isValidGuess = (guess) => {
   if (isNight) {
     return !!nightSolutions[flattenedGuess];
   }
+  if (isAccessible) {
+    return !!accessibleSolutions[flattenedGuess];
+  }
   if (isWeekend) {
     return !!weekendSolutions[flattenedGuess];
   }
@@ -120,10 +127,14 @@ const daysBetween = (startDate, endDate) => {
 }
 
 export const isNight = NIGHT_GAMES.includes(todayGameIndex());
+export const isAccessible = todayGameIndex() === ACCESSIBLE_GAME;
 
 const todaysRoutings = () => {
   if (isNight) {
     return nightRoutings;
+  }
+  if (isAccessible) {
+    return accessibleRoutings;
   }
   if (isWeekend) {
     return weekendRoutings;
@@ -135,6 +146,9 @@ export const todaysTrip = () => {
   const index = todayGameIndex();
   if (isNight) {
     return nightAnswers[index % nightAnswers.length];
+  }
+  if (isAccessible) {
+    return accessibleAnswers[index % accessibleAnswers.length];
   }
   if (isWeekend) {
     return weekendAnswers[index % weekendAnswers.length];
@@ -149,6 +163,9 @@ export const flattenedTodaysTrip = () => {
 export const todaysSolution = () => {
   if (isNight) {
     return weekendSolutions[todaysTrip().join("-")];
+  }
+  if (isAccessible) {
+    return accessibleSolutions[todaysTrip().join("-")];
   }
   if (isWeekend) {
     return weekendSolutions[todaysTrip().join("-")];
