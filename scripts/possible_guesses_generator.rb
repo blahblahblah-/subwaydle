@@ -124,6 +124,7 @@ patterns.each do |p, routes|
                           as_the_crow_flies = latlng[s1].distance_to(latlng[s4])
                           estimated_travel_distance = latlng[s1].distance_to(latlng[s2]) + latlng[s2].distance_to(latlng[t1]) + latlng[t1].distance_to(latlng[s3]) + latlng[s3].distance_to(latlng[t2]) + latlng[t2].distance_to(latlng[s4])
                           travel_distance_factor = estimated_travel_distance / as_the_crow_flies
+                          minimum_distance_between_stations = [latlng[s1].distance_to(latlng[s2]), latlng[t1].distance_to(latlng[s3]), latlng[t2].distance_to(latlng[s4])].min
 
                           if !answers.include?(combo)
                             # puts "#{s1} #{r1} #{s2}-#{t1} #{r2} #{s3}-#{t2} #{r3} #{as_the_crow_flies} mi vs. #{estimated_travel_distance} mi (#{travel_distance_factor})"
@@ -137,6 +138,7 @@ patterns.each do |p, routes|
                                 second_transfer_departure: t2,
                                 destination: s4,
                                 travel_distance_factor: route_exists_from_begin_to_end ? 100 : travel_distance_factor,
+                                minimum_distance_between_stations: minimum_distance_between_stations,
                               }
                             ]
                           else
@@ -148,6 +150,7 @@ patterns.each do |p, routes|
                               second_transfer_departure: t2,
                               destination: s4,
                               travel_distance_factor: route_exists_from_begin_to_end ? 100 : travel_distance_factor,
+                              minimum_distance_between_stations: minimum_distance_between_stations,
                             }
                           end
                         end
@@ -167,7 +170,7 @@ patterns.each do |p, routes|
 
   picked_solutions = solutions.map { |k, v|
     possible_solutions = v.sort_by { |s| s[:travel_distance_factor] }.slice(0, [1, v.size / 3].max).shuffle
-    picked = possible_solutions.find { |s| s[:travel_distance_factor] < 1.6 } || possible_solutions.first
+    picked = possible_solutions.find { |s| s[:travel_distance_factor] < 1.6 && s[:minimum_distance_between_stations] >= 0.50 } || possible_solutions.first
     [k.join("-"), picked]
   }.to_h
 
