@@ -11,7 +11,8 @@ export const shareStatus = (guesses, lost) => {
     title = `Subwaydle ${todayGameIndex()} ♿️`
   }
   const text = `${title} ${lost ? 'X' : guesses.length}/6\n\n` +
-    generateEmojiGrid(guesses);
+    generateEmojiGrid(guesses) +
+    '\n\nhttps://www.subwaydle.com';
   const isIos = /iP(ad|od|hone)/i.test(window.navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
   if (navigator.share && isIos) {
     navigator.share({text: text});
